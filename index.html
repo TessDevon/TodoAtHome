@@ -4,11 +4,96 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To do list for houses and homes</title>
+    <title>ToDo-list for houses and homes</title>
   </head>
   <body>
     <main>
-      <div class="app" id="app"></div> <!-- TODO: går bra att radera -->
+      <header>
+        <h1>ToDo-list for houses and homes</h1>
+      </header>
+      <main>
+        <section>
+          <h2>Sortera efter:</h2>
+          <div class="radiobuttonsdiv">
+            <label for="categoryRadio">
+              <span>TODO typ</span>
+              <input type="radio" name="sortbuttons" class="sortbuttons" id="categoryRadio">
+            </label>
+            <label for="createDateRadio">
+              <span>Skapande datum</span>
+              <input type="radio" name="sortbuttons" class="sortbuttons" id="createDateRadio">
+            </label>
+            <label for="deadlineRadio">
+              <span>Deadline datum</span>
+              <input type="radio" name="sortbuttons" class="sortbuttons" id="deadlineRadio">
+            </label>
+            <label for="toDoNameRadio">
+              <span>TODO rubrik</span>
+              <input type="radio" name="sortbuttons" class="sortbuttons" id="toDoNameRadio">
+            </label>
+          </div>  
+        </section>
+        <section>
+          <article class="toDoItemClass" id="toDoItem">
+            <div>
+              <span class="toDaysDateClass" id="toDaysDate">12 dec, 2022</span>
+              <span class="deadLineDateClass" id="deadLineDate">15 mars, 2022, kl. 15:30:00</span>
+            </div>
+            <h2 class="ToDoNameClass" id="ToDoName">Första trädgårdstunnan</h2>
+            <p class="descriptionClass" id="description">Första tömningen av trädgårdstunna. Fyll på under veckan!</p>
+            <button class="deliteButtonClass" id="deliteButton"></button>
+          </article>
+          <article class="toDoItemClass" id="toDoItem2">
+            <div>
+              <span class="toDaysDateClass" id="toDaysDate2"></span>
+              <span class="deadLineDateClass" id="deadLineDate2"></span>
+            </div>
+            <h2 class="ToDoNameClass" id="ToDoName2"></h2>
+            <p class="descriptionClass" id="description2"></p>
+            <button class="deliteButtonClass" id="deliteButton2"></button>
+          </article>
+          <article class="toDoItemClass" id="toDoItem3">
+            <div>
+              <span class="toDaysDateClass" id="toDaysDate3"></span>
+              <span class="deadLineDateClass" id="deadLineDate3"></span>
+            </div>
+            <h2 class="ToDoNameClass" id="ToDoName3"></h2>
+            <p class="descriptionClass" id="description3"></p>
+            <button class="deliteButtonClass" id="deliteButton3"></button>
+          </article>
+          <article class="toDoItemClass" id="toDoItem4">
+            <div>
+              <span class="toDaysDateClass" id="toDaysDate4"></span>
+              <span class="deadLineDateClass" id="deadLineDate4"></span>
+            </div>
+            <h2 class="ToDoNameClass" id="ToDoName4"></h2>
+            <p class="descriptionClass" id="description4"></p>
+            <button class="deliteButtonClass" id="deliteButton4"></button>
+          </article>
+          <article class="toDoItemClass" id="toDoItem5">
+            <div>
+              <span class="toDaysDateClass" id="toDaysDate5"></span>
+              <span class="deadLineDateClass" id="deadLineDate5"></span>
+            </div>
+            <h2 class="ToDoNameClass" id="ToDoName5"></h2>
+            <p class="descriptionClass" id="description5"></p>
+            <button class="deliteButtonClass" id="deliteButton5"></button>
+          </article>
+
+
+        </section>
+
+      </main>
+      <footer>
+        <p>Made by Tess Devon</p>
+      </footer>
+
+
+
+
+
+
+      <!-- *<div class="app" id="app"></div> TODO: går bra att radera -->
       <!-- TODO: skriv din kod här, innan script-taggen -->
     </main>
 
