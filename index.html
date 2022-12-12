@@ -36,51 +36,70 @@
         <section>
           <article class="toDoItemClass" id="toDoItem">
             <div>
-              <span class="toDaysDateClass" id="toDaysDate">12 dec, 2022</span>
-              <span class="deadLineDateClass" id="deadLineDate">15 mars, 2022, kl. 15:30:00</span>
+              <span class="toDaysDateClass" id="toDaysDate">2022-12-12</span>
+              <span class="deadLineDateClass" id="deadLineDate">2023-03-15 5:30</span>
             </div>
             <h2 class="ToDoNameClass" id="ToDoName">Första trädgårdstunnan</h2>
             <p class="descriptionClass" id="description">Första tömningen av trädgårdstunna. Fyll på under veckan!</p>
-            <button class="deliteButtonClass" id="deliteButton"></button>
+            <button class="deliteButtonClass" id="deliteButton">Radera</button>
           </article>
           <article class="toDoItemClass" id="toDoItem2">
             <div>
-              <span class="toDaysDateClass" id="toDaysDate2"></span>
-              <span class="deadLineDateClass" id="deadLineDate2"></span>
+              <span class="toDaysDateClass" id="toDaysDate2">22-12-12</span>
+              <span class="deadLineDateClass" id="deadLineDate2">2023-05-30 15:30</span>
             </div>
-            <h2 class="ToDoNameClass" id="ToDoName2"></h2>
-            <p class="descriptionClass" id="description2"></p>
-            <button class="deliteButtonClass" id="deliteButton2"></button>
+            <h2 class="ToDoNameClass" id="ToDoName2">Sotaren på besök</h2>
+            <p class="descriptionClass" id="description2">Fråga om olika förbränningsalternativ!</p>
+            <button class="deliteButtonClass" id="deliteButton2">Radera</button>
           </article>
           <article class="toDoItemClass" id="toDoItem3">
             <div>
-              <span class="toDaysDateClass" id="toDaysDate3"></span>
-              <span class="deadLineDateClass" id="deadLineDate3"></span>
+              <span class="toDaysDateClass" id="toDaysDate3">22-12-12</span>
+              <span class="deadLineDateClass" id="deadLineDate3">23-06-30 8:00</span>
             </div>
-            <h2 class="ToDoNameClass" id="ToDoName3"></h2>
-            <p class="descriptionClass" id="description3"></p>
-            <button class="deliteButtonClass" id="deliteButton3"></button>
+            <h2 class="ToDoNameClass" id="ToDoName3">Måla om garaget</h2>
+            <p class="descriptionClass" id="description3">Målning av garage denna veckan med förtvätt och målning.</p>
+            <button class="deliteButtonClass" id="deliteButton3">Radera</button>
           </article>
           <article class="toDoItemClass" id="toDoItem4">
             <div>
-              <span class="toDaysDateClass" id="toDaysDate4"></span>
-              <span class="deadLineDateClass" id="deadLineDate4"></span>
+              <span class="toDaysDateClass" id="toDaysDate4">22-12-12</span>
+              <span class="deadLineDateClass" id="deadLineDate4">2022-03-05</span>
             </div>
-            <h2 class="ToDoNameClass" id="ToDoName4"></h2>
-            <p class="descriptionClass" id="description4"></p>
-            <button class="deliteButtonClass" id="deliteButton4"></button>
+            <h2 class="ToDoNameClass" id="ToDoName4">Första sådden</h2>
+            <p class="descriptionClass" id="description4">Börja med fysalis och melon</p>
+            <button class="deliteButtonClass" id="deliteButton4">Radera</button>
           </article>
           <article class="toDoItemClass" id="toDoItem5">
             <div>
-              <span class="toDaysDateClass" id="toDaysDate5"></span>
-              <span class="deadLineDateClass" id="deadLineDate5"></span>
+              <span class="toDaysDateClass" id="toDaysDate5">2022-12-12</span>
+              <span class="deadLineDateClass" id="deadLineDate5">2023-04-02</span>
             </div>
-            <h2 class="ToDoNameClass" id="ToDoName5"></h2>
-            <p class="descriptionClass" id="description5"></p>
-            <button class="deliteButtonClass" id="deliteButton5"></button>
+            <h2 class="ToDoNameClass" id="ToDoName5">Andra sådden</h2>
+            <p class="descriptionClass" id="description5">Nu är det dags för tomat och gurka</p>
+            <button class="deliteButtonClass" id="deliteButton5">Radera</button>
           </article>
+        </section>
+        <section>
+          <form action="addToTODO">
+            <label for="todaysDate">
+              <span>Dagens datum</span>
+              <input type="date" class="formInputs" id="todaysDate">
+            </label><br>
+            <label for="deadlineDate">
+              <span>Deadline</span>
+              <input type="datetime-local" class="formInputs" id="deadlineDate">
+            </label><br>
+            <label for="nameOfToDo">
+              <span>Rubrik</span>
+              <input type="text" class="formInputs" id="nameOfToDo">
+            </label><br>
+            <label for="descriptionOfToDo">
+              <span>Beskrivning</span>
+              <textarea class="forminputs" id="descriptionOfToDo"></textarea>
+            </label><br>
 
-
+          </form>
         </section>
 
       </main>
