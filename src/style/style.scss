@@ -1,6 +1,18 @@
 @use "utils/a11y"; // Om det inte funkar, byt @use mot @import
 @use "vendor/reset";
 
+/* -----------------------------------------------------------------------------
+----------------- MAIN ---------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+span, p, h2, button, input {
+  font-family: 'Dekko', cursive;
+}
+
+/* -------------------------------------------------------------------------------
+------------------ HEADER --------------------------------------------------------
+------------------------------------------------------------------------------- */
+
 h1 {
   font-family: 'Rock Salt', cursive;
   position: absolute;
@@ -8,10 +20,6 @@ h1 {
   text-shadow: rgb(249, 248, 246) 2px 0 10px;
   margin: 15px;
   font-size: 1.5rem;
-}
-
-span, p, h2, button, input {
-  font-family: 'Dekko', cursive;
 }
 
 header {
@@ -24,6 +32,36 @@ header {
   height: 200px;
 }
 
+
+/* ---------------------------------------------------------------------------------
+------------------ SORT PART -------------------------------------------------------
+--------------------------------------------------------------------------------- */
+
+body {
+  background-color: rgb(244, 238, 223);
+}
+
+.radiobuttonSection {
+  margin: 15px;
+}
+
+.radiobuttonsdiv {
+display: flex;
+flex-direction: column;
+}
+
+.sortHeader {
+  font-size: 1rem;
+}
+
+.radioButtonSpan {
+  font-size: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------------
+------------------ BIGGER SIZES ---------------------------------------------------
+-------------------------------------------------------------------------------- */
+
 @media screen and (min-width: 768px){
   h1 {
     font-size: 4rem;
@@ -31,13 +69,33 @@ header {
   .headerImage { 
     height: 350px;
   }
+
+  .sortHeader {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .radiobuttonsdiv {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+
 }
 
 @media screen and (min-width: 1400px){
   h1 {
     font-size: 5rem;
   }
-
+  .radiobuttonsdiv {
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-left: 250px;
+    margin-right: 250px;
+  }
 
 }
 
