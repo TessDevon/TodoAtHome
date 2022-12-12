@@ -63,11 +63,12 @@ flex-direction: column;
 -------------------------------------------------------------------------------- */
 
 .toDoItemClass{
-  border: 1px, solid, rgb(13, 99, 33);
   background-color: white;
   border-radius: 15px;
   margin: 20px;
   padding: 20px;
+  border: 1px, solid, rgb(13, 99, 33);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .toDoNameClass {
@@ -90,6 +91,27 @@ flex-direction: column;
 
 .deliteButtonClass {
   border-radius: 10px;
+}
+
+/* --------------------------------------------------------------------------------
+------------------ ADD NEW TODO ---------------------------------------------------
+---------------------------------------------------------------------------------*/
+
+.addToTODO {
+  background-color: white;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 20px;
+  border: 1px, solid, rgb(13, 99, 33);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;  
+}
+
+label { 
+  display: flex; gap: 20px; 
+}
+
+label span { 
+  width: 100px; 
 }
 
 /* --------------------------------------------------------------------------------
