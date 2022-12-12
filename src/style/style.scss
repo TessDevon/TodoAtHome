@@ -1,6 +1,14 @@
 @use "utils/a11y"; // Om det inte funkar, byt @use mot @import
 @use "vendor/reset";
 
+h1 {
+  font-family: 'Rock Salt', cursive;
+}
+
+span, p, h2, button, input {
+  font-family: 'Dekko', cursive;
+}
+
 
 /*
 :root {
