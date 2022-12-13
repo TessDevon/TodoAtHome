@@ -1,10 +1,5 @@
 import './style/style.scss';
 
-
-
-
-
-
 /*
 // All kod härifrån och ner är bara ett exempel för att komma igång
 
