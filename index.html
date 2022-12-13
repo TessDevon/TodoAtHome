@@ -20,21 +20,21 @@
         <section class="radiobuttonSection">
           <h2 class="sortHeader">Sortera efter:</h2>
           <div class="radiobuttonsdiv">
-            <label for="categoryRadio">
-              <span class="radioButtonSpan">TODO typ</span>
+            <label class="sortLabel" for="categoryRadio">
               <input type="radio" name="sortbuttons" class="sortbuttons" id="categoryRadio">
+              <span class="radioButtonSpan">TODO typ</span>
             </label>
-            <label for="createDateRadio">
-              <span class="radioButtonSpan">Skapande datum</span>
+            <label class="sortLabel" for="createDateRadio">
               <input type="radio" name="sortbuttons" class="sortbuttons" id="createDateRadio">
+              <span class="radioButtonSpan">Skapande datum</span>
             </label>
-            <label for="deadlineRadio">
-              <span class="radioButtonSpan">Deadline datum</span>
+            <label class="sortLabel" for="deadlineRadio">
               <input type="radio" name="sortbuttons" class="sortbuttons" id="deadlineRadio">
+              <span class="radioButtonSpan">Deadline datum</span>
             </label>
-            <label for="toDoNameRadio">
-              <span class="radioButtonSpan">TODO rubrik</span>
+            <label class="sortLabel" for="toDoNameRadio">
               <input type="radio" name="sortbuttons" class="sortbuttons" id="toDoNameRadio">
+            <span class="radioButtonSpan">TODO rubrik</span>
             </label>
           </div>  
         </section>
@@ -50,7 +50,7 @@
           </article>
           <article class="toDoItemClass" id="toDoItem2">
             <div class="datePartInTODOItem">
-              <span class="toDaysDateClass" id="toDaysDate2">22-12-12</span>
+              <span class="toDaysDateClass" id="toDaysDate2">2022-12-12</span>
               <span class="deadLineDateClass" id="deadLineDate2">2023-05-30 15:30</span>
             </div>
             <h2 class="ToDoNameClass" id="ToDoName2">Sotaren på besök</h2>
@@ -59,8 +59,8 @@
           </article>
           <article class="toDoItemClass" id="toDoItem3">
             <div class="datePartInTODOItem">
-              <span class="toDaysDateClass" id="toDaysDate3">22-12-12</span>
-              <span class="deadLineDateClass" id="deadLineDate3">23-06-30 8:00</span>
+              <span class="toDaysDateClass" id="toDaysDate3">2022-12-12</span>
+              <span class="deadLineDateClass" id="deadLineDate3">2023-06-30 8:00</span>
             </div>
             <h2 class="toDoNameClass" id="ToDoName3">Måla om garaget</h2>
             <p class="descriptionClass" id="description3">Målning av garage denna veckan med förtvätt och målning.</p>
@@ -68,7 +68,7 @@
           </article>
           <article class="toDoItemClass" id="toDoItem4">
             <div class="datePartInTODOItem">
-              <span class="toDaysDateClass" id="toDaysDate4">22-12-12</span>
+              <span class="toDaysDateClass" id="toDaysDate4">2022-12-12</span>
               <span class="deadLineDateClass" id="deadLineDate4">2022-03-05</span>
             </div>
             <h2 class="toDoNameClass" id="ToDoName4">Första sådden</h2>
@@ -87,25 +87,27 @@
         </section>
         <section class="addToTODO">
           <form action="addToTODO">
-            <h2>Lägg till en TODO</h2>
+            <h2 class="formLabels">Lägg till en TODO</h2>
             <label for="todaysDate">
-              <span>Dagens datum</span>
+              <span class="formLabels">Dagens datum</span>
               <input type="date" class="formInputs" id="todaysDate">
             </label><br>
             <label for="deadlineDate">
-              <span>Deadline</span>
+              <span class="formLabels">Deadline</span>
               <input type="datetime-local" class="formInputs" id="deadlineDate">
             </label><br>
             <label for="nameOfToDo">
-              <span>Rubrik</span>
+              <span class="formLabels">Rubrik</span>
               <input type="text" class="formInputs" id="nameOfToDo">
             </label><br>
             <label for="descriptionOfToDo">
-              <span>Beskrivning</span>
+              <span class="formLabels">Beskrivning</span>
               <textarea class="forminputs" id="descriptionOfToDo"></textarea>
             </label><br>
-            <input type="reset" value="Radera TODO">
-            <input type="submit" value="Lägg till TODO">
+            <div class="addNewTODOButtonsDiv">
+              <input type="reset" class="deliteTODOButton" value="Radera TODO">
+              <input type="submit" class="addNewTODOButton" value="Lägg till TODO">
+            </div>  
           </form>
         </section>
 
