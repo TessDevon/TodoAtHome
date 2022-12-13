@@ -44,6 +44,10 @@ body {
   margin: 15px 50px; 
 }
 
+.radioButtonSpan {
+  font-size: 1.5rem;
+}
+
 .radiobuttonsdiv {
 display: flex;
 flex-direction: column;
@@ -86,6 +90,10 @@ flex-direction: column;
 
 .descriptionClass, .deliteButtonClass {
   font-size: 1.5rem;
+}
+
+.radioButtonSpan {
+  font-size: 1.2rem;
 }
 
 .datePartInTODOItem {
@@ -225,6 +233,11 @@ footer{
   .deliteTODOButton, .addNewTODOButton, .deliteButtonClass{
     font-size: 1.5rem;  
   }  
+
+  .radioButtonSpan {
+    font-size: 1.5rem;
+  }
+
 }
 
 @media screen and (min-width: 1400px){
