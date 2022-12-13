@@ -88,6 +88,10 @@ flex-direction: column;
   margin-top: 10px;
 }
 
+.descriptionClass {
+  margin-bottom: 25px;
+}
+
 .descriptionClass, .deliteButtonClass {
   font-size: 1.5rem;
 }
@@ -103,6 +107,17 @@ flex-direction: column;
 
 .deliteButtonClass {
   border-radius: 10px;
+}
+
+.todoButtonsDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fiveDaysToDeadlineP {
+  color: red;
+  font-size: 2rem;
+  margin-bottom: 25px;
 }
 
 /* --------------------------------------------------------------------------------
@@ -136,7 +151,7 @@ label span {
   justify-content: space-between;
 }
 
-.addNewTODOButton {
+.addNewTODOButton, .doneButtonClass{
   font-size: 1rem;  
   border-radius: 10px;
   background-color: rgb(205, 245, 148);
@@ -227,7 +242,7 @@ footer{
     padding-left: 10px;
   }
   
-  .deliteTODOButton, .addNewTODOButton, .deliteButtonClass{
+  .deliteTODOButton, .doneButtonClass, .addNewTODOButton, .deliteButtonClass{
     font-size: 1.5rem;  
   }  
 
