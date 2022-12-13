@@ -163,6 +163,21 @@ label span {
   background-color: rgb(245, 191, 200);
 }
 
+.categoryDiv{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.categoryLabels{
+  width: 145px;
+  margin-bottom: 15px;
+}
+
+.categoryP{
+  margin: 15px;
+}
+
 /* --------------------------------------------------------------------------------
 ------------------ FOOTER ---------------------------------------------------------
 -------------------------------------------------------------------------------- */
@@ -252,6 +267,20 @@ footer{
 
   footer{
     font-size: 1.5rem;
+  }
+
+  .categoryRadioSpans {
+    font-size: 1.4rem;
+    width: 300px;
+  }
+  .categoryLabels{
+    width: 350px;
+    margin-bottom: 15px;
+  }
+
+  .categoryP {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
   }
 }
 
