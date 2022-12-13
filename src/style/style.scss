@@ -5,7 +5,7 @@
 ----------------- MAIN ---------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-span, p, h2, button, input {
+textarea, span, p, h2, button, input {
   font-family: 'Dekko', cursive;
 }
 
@@ -257,7 +257,7 @@ footer{
     padding-left: 10px;
   }
   
-  .deliteTODOButton, .doneButtonClass, .addNewTODOButton, .deliteButtonClass{
+  textarea, .deliteTODOButton, .doneButtonClass, .addNewTODOButton, .deliteButtonClass{
     font-size: 1.5rem;  
   }  
 
@@ -317,7 +317,7 @@ footer{
     font-size: 2rem;
   }
 
-  .addNewTODOButton, .deliteTODOButton, .deliteButtonClass{
+  textarea, .addNewTODOButton, .deliteTODOButton, .deliteButtonClass{
     font-size: 1.5rem;  
   }
 
