@@ -43,10 +43,15 @@ const todoArticles = [
 
 /**
  * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
- * Loop där objkekten körs i en array Klar
+ * Loop där objkekten körs i en array KLAR
  * Lägga in HTML strukturen KLAR
- * Lägga till bakgrundsfärg till kategorierna?
- * 
+ * Lägga till färgändring till kategorierna? KLAR
+ * Lägg till 5 dagar innan deadline med text i innerHTML
+ * Lägg till röd skugga om deadlinen gått ut
+ * Aktivera ta bort TODO
+ * Aktivera Klarknapp och flytta längst ner i listan med grön bakgrundsfärg.
+ *
+ * Lägg till TODOs kommer fler punkter här in under när ovanstående är klart.
  */
 
 function addColorToCategorys() {
