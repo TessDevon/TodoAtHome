@@ -56,18 +56,19 @@ const todoArticles = [
 
 function addColorToCategorys() {
   const categoryParts : NodeListOf<HTMLElement> = document.querySelectorAll('#category');
+  const articleTodo : NodeListOf<HTMLElement> = document.querySelectorAll('#toDoItem');
   console.log(categoryParts[0].innerHTML);
 
   for (let i = 0; i < categoryParts.length; i++) {
     if (categoryParts[i].innerHTML === 'Trädgård') {
-      categoryParts[i].style.backgroundColor = 'green';
-      categoryParts[i].style.color = 'white';
+      categoryParts[i].style.color = 'rgb(74, 119, 83)';
+      articleTodo[i].style.border = '5px solid rgb(74, 119, 83)';
     } else if (categoryParts[i].innerHTML === 'Hus och hem') {
-      categoryParts[i].style.backgroundColor = 'darkblue';
-      categoryParts[i].style.color = 'white';
+      categoryParts[i].style.color = 'rgb(57, 57, 136)';
+      articleTodo[i].style.border = '5px solid rgb(57, 57, 136)';
     } else if (categoryParts[i].innerHTML === 'Hantverkare') {
-      categoryParts[i].style.backgroundColor = 'purple';
-      categoryParts[i].style.color = 'white';
+      categoryParts[i].style.color = 'rgb(116, 59, 131)';
+      articleTodo[i].style.border = '5px solid rgb(116, 59, 131)';
     }
   }
 }
@@ -99,3 +100,4 @@ function updateTodoList() {
 }
 
 updateTodoList();
+

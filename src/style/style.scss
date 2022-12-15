@@ -37,7 +37,7 @@ header {
 --------------------------------------------------------------------------------- */
 
 body {
-  background-color: rgb(244, 238, 223);
+  background-color: rgb(192, 179, 165);
 }
 
 .radiobuttonSection {
@@ -71,7 +71,7 @@ flex-direction: column;
 -------------------------------------------------------------------------------- */
 
 .toDoItemClass{
-  border: 2px solid green;
+  border: 2px solid black;
   background-color: white;
   border-radius: 15px;
   margin: 20px;
@@ -163,13 +163,13 @@ label span {
 .addNewTODOButton, .doneButtonClass{
   font-size: 1rem;  
   border-radius: 10px;
-  background-color: rgb(205, 245, 148);
+  background-color: rgb(201, 211, 185);
 }
 
 .deliteTODOButton, .deliteButtonClass{
   font-size: 1rem;  
   border-radius: 10px;
-  background-color: rgb(245, 191, 200);
+  background-color: rgb(221, 191, 196);
 }
 
 .categoryDiv{
