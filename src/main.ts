@@ -55,7 +55,7 @@ const todoArticles = [
  */
 
 function addColorToCategorys() {
-  const categoryParts = document.querySelectorAll('#category');
+  const categoryParts : NodeListOf<HTMLElement> = document.querySelectorAll('#category');
   console.log(categoryParts[0].innerHTML);
 
   for (let i = 0; i < categoryParts.length; i++) {
@@ -73,27 +73,29 @@ function addColorToCategorys() {
 }
 
 function updateTodoList() {
-  toDoItemSection.innerHTML = '';
+  if (toDoItemSection != null) {
+    toDoItemSection.innerHTML = '';
 
-  for (let i = 0; i < todoArticles.length; i++) {
-    toDoItemSection.innerHTML += 
-    `<article class="toDoItemClass" id="toDoItem">
-    <div class="datePartInTODOItem">
-      <span class="toDaysDateClass" id="toDaysDate">${todoArticles[i].toDaysDate}</span>
-      <span class="deadLineDateClass" id="deadLineDate">${todoArticles[i].deadLineDate}</span>
-    </div>
-    <p class="categoryClass" id="category">${todoArticles[i].category}</p>
-    <h2 class="toDoNameClass" id="toDoName">${todoArticles[i].toDoName}</h2>
-    <p class="descriptionClass" id="description">${todoArticles[i].description}</p>
-    <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline"></p>
-    <div class="todoButtonsDiv">
-      <button class="deliteButtonClass" id="deliteButton">Radera</button>
-      <button class="doneButtonClass" id="doneButton">Markera som klar</button>
-    </div>      
-  </article>`;
+    for (let i = 0; i < todoArticles.length; i++) {
+      toDoItemSection.innerHTML
+      += `<article class="toDoItemClass" id="toDoItem">
+      <div class="datePartInTODOItem">
+        <span class="toDaysDateClass" id="toDaysDate">${todoArticles[i].toDaysDate}</span>
+        <span class="deadLineDateClass" id="deadLineDate">${todoArticles[i].deadLineDate}</span>
+      </div>
+      <p class="categoryClass" id="category">${todoArticles[i].category}</p>
+      <h2 class="toDoNameClass" id="toDoName">${todoArticles[i].toDoName}</h2>
+      <p class="descriptionClass" id="description">${todoArticles[i].description}</p>
+      <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline"></p>
+      <div class="todoButtonsDiv">
+        <button class="deliteButtonClass" id="deliteButton">Radera</button>
+        <button class="doneButtonClass" id="doneButton">Markera som klar</button>
+      </div>      
+    </article>`;
+    }
+
+    addColorToCategorys();
   }
-
-  addColorToCategorys();
 }
 
 updateTodoList();
