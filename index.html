@@ -54,28 +54,28 @@
             <div class="categoryDiv">
               <label class="categoryLabels" for="categoryGarden">
                 <input type="radio" name="category" id="categoryGarden" class="categoryGardenClass">
-                <span class="categoryRadioSpans"><b>Trädgård</b></span>
+                <span class="categoryRadioSpans" id="radiospanGarden"><b>Trädgård</b></span>
               </label>
               <label class="categoryLabels" for="categoryHouse">
                 <input type="radio" name="category" id="categoryHouse" class="categoryHouseClass">
-                <span class="categoryRadioSpans"><b>Hus och hem</b></span>
+                <span class="categoryRadioSpans" id="radiospanHome"><b>Hus och hem</b></span>
               </label>
               <label class="categoryLabels" for="categoryHandyMan">
                 <input type="radio" name="category" id="categoryHandyMan" class="categoryHandyManClass">
-                <span class="categoryRadioSpans"><b>Hantverkare</b></span>
+                <span class="categoryRadioSpans" id="radiospanHandyman"><b>Hantverkare</b></span>
               </label>
             </div>
             <label for="nameOfToDo">
-              <span class="formLabels">Rubrik</span>
+              <span class="formLabels" id="formHeader">Rubrik</span>
               <input type="text" class="formInputs" id="nameOfToDo">
             </label><br>
             <label for="descriptionOfToDo">
-              <span class="formLabels">Beskrivning</span>
-              <textarea class="forminputs" id="descriptionOfToDo"></textarea>
+              <span class="formLabels" id="descriptionOfTodoSpan">Beskrivning</span>
+              <textarea class="forminputs" id="descriptionOfTodoSpan"></textarea>
             </label><br>
             <div class="addNewTODOButtonsDiv">
               <input type="reset" class="deliteTODOButton" value="Radera TODO">
-              <input type="submit" class="addNewTODOButton" value="Lägg till TODO">
+              <button class="addNewTODOButton" id="addNewTodoButtonID">Lägg till TODO</button>
             </div>  
           </form>
         </section>
