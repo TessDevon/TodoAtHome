@@ -38,7 +38,7 @@ const todoArticles = [
     deadLineDate: '2023-03-15, 5:30',
     category: 'Trädgård',
     toDoName: 'Första trädgårdstunnan',
-    description: 'FÖrsta tömningen av trädgårdstunnan. Fyll på under veckan!',
+    description: 'Första tömningen av trädgårdstunnan. Fyll på under veckan!',
   }];
 
 /**
@@ -57,18 +57,25 @@ const todoArticles = [
 function addColorToCategorys() {
   const categoryParts : NodeListOf<HTMLElement> = document.querySelectorAll('#category');
   const articleTodo : NodeListOf<HTMLElement> = document.querySelectorAll('#toDoItem');
+  const categoryDivAddIcon : NodeListOf<HTMLElement> = document.querySelectorAll('#iconImg');
   console.log(categoryParts[0].innerHTML);
 
   for (let i = 0; i < categoryParts.length; i++) {
     if (categoryParts[i].innerHTML === 'Trädgård') {
       categoryParts[i].style.color = 'rgb(74, 119, 83)';
       articleTodo[i].style.border = '5px solid rgb(74, 119, 83)';
+      categoryDivAddIcon[i].setAttribute('src', './public/garden.jpg');
+      categoryDivAddIcon[i].setAttribute('alt', 'gardenIcon');
     } else if (categoryParts[i].innerHTML === 'Hus och hem') {
       categoryParts[i].style.color = 'rgb(57, 57, 136)';
       articleTodo[i].style.border = '5px solid rgb(57, 57, 136)';
+      categoryDivAddIcon[i].setAttribute('src', './public/housesAndHomes.jpg');
+      categoryDivAddIcon[i].setAttribute('alt', 'homeIcon');
     } else if (categoryParts[i].innerHTML === 'Hantverkare') {
       categoryParts[i].style.color = 'rgb(116, 59, 131)';
       articleTodo[i].style.border = '5px solid rgb(116, 59, 131)';
+      categoryDivAddIcon[i].setAttribute('src', './public/handyman.jpg');
+      categoryDivAddIcon[i].setAttribute('alt', 'homeIcon');
     }
   }
 }
@@ -84,9 +91,12 @@ function updateTodoList() {
         <span class="toDaysDateClass" id="toDaysDate">${todoArticles[i].toDaysDate}</span>
         <span class="deadLineDateClass" id="deadLineDate">${todoArticles[i].deadLineDate}</span>
       </div>
-      <p class="categoryClass" id="category">${todoArticles[i].category}</p>
-      <h2 class="toDoNameClass" id="toDoName">${todoArticles[i].toDoName}</h2>
-      <p class="descriptionClass" id="description">${todoArticles[i].description}</p>
+      <div class="categoryDiv" id="categoryID">
+        <img id="iconImg">
+        <span class="categoryClass" id="category">${todoArticles[i].category}</span>
+      </div>
+        <h2 class="toDoNameClass" id="toDoName">${todoArticles[i].toDoName}</h2>
+        <p class="descriptionClass" id="description">${todoArticles[i].description}</p>
       <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline"></p>
       <div class="todoButtonsDiv">
         <button class="deliteButtonClass" id="deliteButton">Radera</button>
