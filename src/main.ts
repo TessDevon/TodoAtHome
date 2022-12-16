@@ -136,17 +136,19 @@ const addNewTodoButton : HTMLElement = document.querySelector('#addNewTodoButton
 const deadLineDateInTodo : HTMLElement = document.querySelector('#deadlineDate');
 const headerTodo : HTMLElement = document.querySelector('#nameOfToDo');
 const descriptionTodo : HTMLElement = document.querySelector('#descriptionOfTodoArea');
-const radioButtonGarden : HTMLElement = document.querySelector('#categoryGarden');
-const radioButtonHome : HTMLElement = document.querySelector('#categoryHouse');
-const radioButtonHandyman : HTMLElement = document.querySelector('#categoryHandyMan');
+const radioButtonGarden : HTMLFormElement = document.querySelector('#categoryGarden');
+const radioButtonHome : HTMLFormElement = document.querySelector('#categoryHouse');
+const radioButtonHandyman : HTMLFormElement = document.querySelector('#categoryHandyMan');
 
 function addNewTodoItem(e) { // Funktion som startar ny todo.
   const today = new Date(); // Hämtar upp dagens datum
   const year = today.getFullYear(); // Hämtar endast året
-  const month = today.getMonth(); // Hämtar endast måndaden
-  const day = today.getDay(); // Hämtar endast dagen
+  const month = (String(today.getMonth() + 1).padStart(2, '0'));
+  // Hämtar endast måndaden, om månaden är ensiffrigt läggs det på en nolla före.
+  const day = (String(today.getDate()).padStart(2, '0'));
+  // Hämtar endast dagen, om det är under tio läggs det på en nolla före.
 
-  const todayYearMonthDay = year + '-' + month + '-' + day; 
+  const todayYearMonthDay = year + '-' + month + '-' + day;
   // Dagens datum sätts ihop.
 
   let categoryValue;
