@@ -3,7 +3,7 @@ import './style/style.scss';
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
 
-const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
+let todoArticles = [ // arrayn med färdigskrivna Todo-objekt
   {
     toDaysDate: '2022-12-12',
     deadLineDate: '2023-03-15, 05:30',
@@ -66,17 +66,17 @@ function addColorToCategorys() { // funktion som stylar och aderar ikoner till k
     if (categoryParts[i].innerHTML === 'Trädgård') { // om kategorin är trädgård
       categoryParts[i].style.color = 'rgb(74, 119, 83)'; // ändras färgen till grön
       articleTodo[i].style.border = '5px solid rgb(74, 119, 83)'; // Todon får en grön ram
-      categoryDivAddIcon[i].setAttribute('src', './public/garden.jpg'); // Ikonen med blomma läggs till i img
+      categoryDivAddIcon[i].setAttribute('src', '/garden.jpg'); // Ikonen med blomma läggs till i img
       categoryDivAddIcon[i].setAttribute('alt', 'gardenIcon'); // med altvärde
     } else if (categoryParts[i].innerHTML === 'Hus och hem') { // om kategorin är hus och hem
       categoryParts[i].style.color = 'rgb(57, 57, 136)'; // så är textfärgen blå
       articleTodo[i].style.border = '5px solid rgb(57, 57, 136)'; // ramen runt blå
-      categoryDivAddIcon[i].setAttribute('src', './public/housesAndHomes.jpg'); // ikonen med huset läggs in i img
+      categoryDivAddIcon[i].setAttribute('src', '/housesAndHomes.jpg'); // ikonen med huset läggs in i img
       categoryDivAddIcon[i].setAttribute('alt', 'homeIcon'); // alttext förs in
     } else if (categoryParts[i].innerHTML === 'Hantverkare') { // och om kategorin är hantverkare
       categoryParts[i].style.color = 'rgb(116, 59, 131)'; // blir textfärgen lila
       articleTodo[i].style.border = '5px solid rgb(116, 59, 131)'; // ram med lila färg runt
-      categoryDivAddIcon[i].setAttribute('src', './public/handyman.jpg'); // ikon med verktyg läggs in i img
+      categoryDivAddIcon[i].setAttribute('src', '/handyman.jpg'); // ikon med verktyg läggs in i img
       categoryDivAddIcon[i].setAttribute('alt', 'homeIcon'); // alttext läggs till
     }
   }
@@ -114,16 +114,51 @@ function updateTodoList() { // funktion som kör arrayn av todos och för över 
 updateTodoList();
 
 const addNewTodoButton : HTMLElement = document.querySelector('#addNewTodoButtonID');
-const toDaysDateInTodo : HTMLElement = document.querySelector('#todaysDate');
 const deadLineDateInTodo : HTMLElement = document.querySelector('#deadlineDate');
-const radiospanGarden : HTMLElement = document.querySelector('#radiospanGarden');
-const radiospanHome : HTMLElement = document.querySelector('#radiospanHome');
-const radiospanHandyman : HTMLElement = document.querySelector('#radiospanHandyman');
 const headerTodo : HTMLElement = document.querySelector('#nameOfToDo');
-const descriptionTodo : HTMLElement = document.querySelector('#descriptionOfTodoSpan');
+const descriptionTodo : HTMLElement = document.querySelector('#descriptionOfTodoArea');
+const radioButtonGarden : HTMLElement = document.querySelector('#categoryGarden');
+const radioButtonHome : HTMLElement = document.querySelector('#categoryHouse');
+const radioButtonHandyman : HTMLElement = document.querySelector('#categoryHandyMan');
 
-function addNewTodoItem() {
+function addNewTodoItem(e) { // Funktion som startar ny todo.
+  const today = new Date(); // Hämtar upp dagens datum
+  const year = today.getFullYear(); // Hämtar endast året
+  const month = today.getMonth(); // Hämtar endast måndaden
+  const day = today.getDay(); // Hämtar endast dagen
 
+  const todayYearMonthDay = year + '-' + month + '-' + day; 
+  // Dagens datum sätts ihop.
+  /*
+  *OBS lägg till så det är två siffor, kolla filmen
+  *OBS Se över att få deadline att se bättre ut
+  */
+
+  let categoryValue;
+  if (radioButtonGarden.checked) {
+    categoryValue = 'Trädgård';
+  } else if (radioButtonHome.checked) {
+    categoryValue = 'Hus och hem';
+  } else if (radioButtonHandyman.checked) {
+    categoryValue = 'Hantverkare';
+  };
+
+e.preventDefault();
+  const todoArticleToAdd = {
+    toDaysDate: todayYearMonthDay,
+    deadLineDate: deadLineDateInTodo.value,
+    category: categoryValue,
+    toDoName: headerTodo.value,
+    description: descriptionTodo.value
+  };
+  console.log(todoArticleToAdd);
+
+  todoArticles.push(todoArticleToAdd);
+
+  updateTodoList();
+}
+
+function addGarden() {
 }
 
 addNewTodoButton.addEventListener('click', addNewTodoItem);

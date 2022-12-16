@@ -13,7 +13,7 @@
   <body>
     <main>
       <header>
-        <img class="headerImage" src="./public/ToDoImage.jpg" alt="Image of a todo-list">
+        <img class="headerImage" src="/ToDoImage.jpg" alt="Image of a todo-list">
         <h1>ToDo-list for houses and homes</h1>
       </header>
       <main>
@@ -42,10 +42,10 @@
         <section class="addToTODO">
           <form action="addToTODO">
             <h2 class="formLabels">Lägg till en TODO</h2>
-            <label for="todaysDate">
+            <!--<label for="todaysDate">
               <span class="formLabels">Dagens datum</span>
               <input type="date" class="formInputs" id="todaysDate">
-            </label><br>
+            </label><br>-->
             <label for="deadlineDate">
               <span class="formLabels">Deadline</span>
               <input type="datetime-local" class="formInputs" id="deadlineDate">
@@ -71,7 +71,7 @@
             </label><br>
             <label for="descriptionOfToDo">
               <span class="formLabels" id="descriptionOfTodoSpan">Beskrivning</span>
-              <textarea class="forminputs" id="descriptionOfTodoSpan"></textarea>
+              <textarea class="forminputs" id="descriptionOfTodoArea"></textarea>
             </label><br>
             <div class="addNewTODOButtonsDiv">
               <input type="reset" class="deliteTODOButton" value="Radera TODO">
