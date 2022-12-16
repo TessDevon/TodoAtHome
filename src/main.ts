@@ -8,6 +8,7 @@ import './style/style.scss';
  */
 
 /* ATT GÖRA
+ * Lägg till sparningar till LocalStorage för att spara de nya Todon.
  * Lägg till så det är två siffor i datumen, kolla Jennis film
  * Se över att få deadlinedatum att se bättre ut MDN
  * Tid:
@@ -18,6 +19,17 @@ import './style/style.scss';
  * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
  * Aktivera Klarknapp och flytta längst ner i listan med grön bakgrundsfärg.
  */
+
+/* Hur använda lokal storage? Sist i projektet..?
+  Lagra objekt, detta fall den nya Todon som användaren skapar:
+  localStorage.setItem('todoArticleToAdd', JSN.stringify(todoArticleToAdd));
+  // Görs värdena om till sträng för att lagras på storage
+  console.log(JSON.parse(localStroage.getItem('todoArticleToAdd')));
+  // Då görs strängen om till objekt igen och kan användas i koden.
+  Lagra Arrayer, detta fall. De arrayer som programmet skriver ut:
+  localStorage.setItem('todoArticles', todoArticles); // Konverteras till sträng
+  console.log(localStorage.getItem('todoArticles').split(',')); // Processa/konventera tillbaka till rätt format.
+  */
 
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
