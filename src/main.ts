@@ -134,6 +134,7 @@ updateTodoList();
 
 const addNewTodoButton : HTMLElement = document.querySelector('#addNewTodoButtonID');
 const deadLineDateInTodo : HTMLElement = document.querySelector('#deadlineDate');
+const deadLineTimeInTodo : HTMLElement = document.querySelector('#deadLineTime');
 const headerTodo : HTMLElement = document.querySelector('#nameOfToDo');
 const descriptionTodo : HTMLElement = document.querySelector('#descriptionOfTodoArea');
 const radioButtonGarden : HTMLFormElement = document.querySelector('#categoryGarden');
@@ -163,7 +164,7 @@ function addNewTodoItem(e) { // Funktion som startar ny todo.
 e.preventDefault();
   const todoArticleToAdd = {
     toDaysDate: todayYearMonthDay,
-    deadLineDate: deadLineDateInTodo.value,
+    deadLineDate: deadLineDateInTodo.value + (', ') + deadLineTimeInTodo.value,
     category: categoryValue,
     toDoName: headerTodo.value,
     description: descriptionTodo.value
