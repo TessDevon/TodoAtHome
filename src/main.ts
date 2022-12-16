@@ -29,6 +29,7 @@ import './style/style.scss';
   Lagra Arrayer, detta fall. De arrayer som programmet skriver ut:
   localStorage.setItem('todoArticles', todoArticles); // Konverteras till sträng
   console.log(localStorage.getItem('todoArticles').split(',')); // Processa/konventera tillbaka till rätt format.
+  localStorage.clear(); // Rensar bort data från programet i localStroage.
   */
 
 const toDoItemSection = document.querySelector('#toDoItemSection');
