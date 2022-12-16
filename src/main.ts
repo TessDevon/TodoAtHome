@@ -1,9 +1,28 @@
 import './style/style.scss';
 
+/* KLART
+ * Loop där objkekten körs i en array KLAR
+ * Lägga in HTML strukturen KLAR
+ * Lägga till färgändring till kategorierna? KLAR
+ * Funktion där man lägger till Todos KLART
+ */
+
+/* ATT GÖRA
+ * Lägg till så det är två siffor i datumen, kolla Jennis film
+ * Se över att få deadlinedatum att se bättre ut MDN
+ * Tid:
+ * Lägg till 5 dagar innan deadline med text i innerHTML
+ * Lägg till röd skugga om deadlinen gått ut
+ * Fler funktioner:
+ * Aktivera ta bort TODO
+ * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
+ * Aktivera Klarknapp och flytta längst ner i listan med grön bakgrundsfärg.
+ */
+
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
 
-let todoArticles = [ // arrayn med färdigskrivna Todo-objekt
+const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
   {
     toDaysDate: '2022-12-12',
     deadLineDate: '2023-03-15, 05:30',
@@ -41,19 +60,6 @@ let todoArticles = [ // arrayn med färdigskrivna Todo-objekt
     toDoName: 'Första trädgårdstunnan',
     description: 'Första tömningen av trädgårdstunnan. Fyll på under veckan!',
   }];
-
-/**
- * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
- * Loop där objkekten körs i en array KLAR
- * Lägga in HTML strukturen KLAR
- * Lägga till färgändring till kategorierna? KLAR
- * Lägg till 5 dagar innan deadline med text i innerHTML
- * Lägg till röd skugga om deadlinen gått ut
- * Aktivera ta bort TODO
- * Aktivera Klarknapp och flytta längst ner i listan med grön bakgrundsfärg.
- *
- * Lägg till TODOs kommer fler punkter här in under när ovanstående är klart.
- */
 
 function addColorToCategorys() { // funktion som stylar och aderar ikoner till kategorierna
   const categoryParts : NodeListOf<HTMLElement> = document.querySelectorAll('#category'); // hämtar kategorin
@@ -129,10 +135,6 @@ function addNewTodoItem(e) { // Funktion som startar ny todo.
 
   const todayYearMonthDay = year + '-' + month + '-' + day; 
   // Dagens datum sätts ihop.
-  /*
-  *OBS lägg till så det är två siffor, kolla filmen
-  *OBS Se över att få deadline att se bättre ut
-  */
 
   let categoryValue;
   if (radioButtonGarden.checked) {
