@@ -18,24 +18,46 @@
       </header>
       <main>
         <section class="radiobuttonSection">
-          <h2 class="sortHeader">Sortera efter:</h2>
-          <div class="radiobuttonsdiv">
-            <label class="sortLabel" for="categoryRadio">
-              <input type="radio" name="sortbuttons" class="sortbuttons" id="categoryRadio">
-              <span class="radioButtonSpan">TODO typ</span>
-            </label>
-            <label class="sortLabel" for="createDateRadio">
-              <input type="radio" name="sortbuttons" class="sortbuttons" id="createDateRadio">
-              <span class="radioButtonSpan">Skapande datum</span>
-            </label>
-            <label class="sortLabel" for="deadlineRadio">
-              <input type="radio" name="sortbuttons" class="sortbuttons" id="deadlineRadio">
-              <span class="radioButtonSpan">Deadline datum</span>
-            </label>
-            <label class="sortLabel" for="toDoNameRadio">
-              <input type="radio" name="sortbuttons" class="sortbuttons" id="toDoNameRadio">
-            <span class="radioButtonSpan">TODO rubrik</span>
-            </label>
+          <div class="sortFiltreDiv">
+            <h2 class="sortHeader">Sortera efter:</h2>
+            <div class="radiobuttonsdiv">
+              <label class="sortLabel" for="categoryRadio">
+                <input type="radio" name="sortbuttons" class="sortbuttons" id="categoryRadio">
+                <span class="radioButtonSpan">TODO typ</span>
+              </label>
+              <label class="sortLabel" for="createDateRadio">
+                <input type="radio" name="sortbuttons" class="sortbuttons" id="createDateRadio">
+                <span class="radioButtonSpan">Skapande datum</span>
+              </label>
+              <label class="sortLabel" for="deadlineRadio">
+                <input type="radio" name="sortbuttons" class="sortbuttons" id="deadlineRadio">
+                <span class="radioButtonSpan">Deadline datum</span>
+              </label>
+              <label class="sortLabel" for="toDoNameRadio">
+                <input type="radio" name="sortbuttons" class="sortbuttons" id="toDoNameRadio">
+              <span class="radioButtonSpan">TODO rubrik</span>
+              </label>
+            </div>  
+            <br><br>
+            <h2 class="sortHeader">Filtrera:</h2>
+            <div class="filtreRadiobuttonsdiv">
+              <label class="sortLabel" for="filtreGarden">
+                <input type="radio" name="sortbuttons2" class="sortbuttons" id="filtreGarden">
+                <span class="radioButtonSpan">Trädgård</span>
+              </label>
+              <label class="sortLabel" for="filtreHandyman">
+                <input type="radio" name="sortbuttons2" class="sortbuttons" id="filtreHandyman">
+                <span class="radioButtonSpan">Hantverkare</span>
+              </label>
+              <label class="sortLabel" for="filtreHome">
+                <input type="radio" name="sortbuttons2" class="sortbuttons" id="filtreHome">
+                <span class="radioButtonSpan">Hus och hem</span>
+              </label>
+              <label class="sortLabel" for="filtreAll">
+                <input type="radio" name="sortbuttons2" class="sortbuttons" id="filtreAll">
+              <span class="radioButtonSpan">Visa alla</span>
+              </label>
+            </div>
           </div>  
         </section>
         <section id="toDoItemSection"></section>

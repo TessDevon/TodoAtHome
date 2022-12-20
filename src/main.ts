@@ -8,19 +8,24 @@ import './style/style.scss';
  * Lägg till så det är två siffor i datumen, kolla Jennis film
  * Se över att få deadlinedatum att se bättre ut MDN
  * Aktivera ta bort TODO
+ * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
 */
 
 /* ATT GÖRA
-
- * Tid:
- * Lägg till 5 dagar innan deadline med text i innerHTML
- * Lägg till röd skugga om deadlinen gått ut
- * Fler funktioner:
- * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
- * Filter?
+ * Tisdag:
+ * Sorteringen
+ * Feedbacka tentan i veckans utverdering.
+ * Onsdag:
+ * Lägga till 5 dagar innan deadline med text i innerHTML
+ * Lägg till röd skugga och byt röda texten när tiden har gått ut.
  * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
  * Lägg till sparningar till LocalStorage för att spara de nya Todon.
-  Hur använda lokal storage? Sist i projektet..?
+ * Torsdag:
+ * Göra klart det som inte är klart och felsöka och fixa. Lämna in uppgiften?
+ * Altermatvt om jag ej är klart lämna in i mellandagarna.
+ */
+
+/* Hur använda lokal storage? Sist i projektet..?
   Lagra objekt, detta fall den nya Todon som användaren skapar:
   localStorage.setItem('todoArticleToAdd', JSN.stringify(todoArticleToAdd));
   // Görs värdena om till sträng för att lagras på storage
@@ -30,7 +35,7 @@ import './style/style.scss';
   localStorage.setItem('todoArticles', todoArticles); // Konverteras till sträng
   console.log(localStorage.getItem('todoArticles').split(',')); // Processa/konventera tillbaka till rätt format.
   localStorage.clear(); // Rensar bort data från programet i localStroage.
-  */
+*/
 
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
@@ -115,6 +120,73 @@ function removeTodo(e) {
   }
 }
 
+const sortByCategory : HTMLFormElement | null = document.querySelector('#categoryRadio');
+const sortByCreatedate : HTMLFormElement | null = document.querySelector('#createDateRadio');
+const sortByDeadlinedate : HTMLFormElement | null = document.querySelector('#deadlineRadio');
+const sortByNameOfTodo : HTMLFormElement | null = document.querySelector('#toDoNameRadio');
+
+/**
+ * Sortering och filtering av todos
+ */
+function sortandfilterlist() {
+  let todoArticlesCopy = [...todoArticles];
+  /**
+   * Sortering av todos
+   */
+  if (sortByCreatedate.checked) { // Om radiobutton för skapandedatum är checkad
+    todoArticlesCopy.sort((a, b) => new Date(a.todaysDate) - new Date(b.todaysDate)); // sorteras listan datum i ordning
+  } if (sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
+    todoArticlesCopy.sort((a, b) => new Date(a.deadlineDate) - new Date(b.deadlineDate)); 
+    // sorteras listan datum i ordning
+  } if (sortByCategory.checked) { // Om radiobutton för kategori är checkad
+    todoArticlesCopy.sort((a, b) => { // Sorteras listan
+      if (a.category > b.category) { // i bokstavsordning
+        return 1;
+      } if (a.category < b.category) { // om den returnerar omvänd ordning
+        return -1; // Visar den falskt
+      }
+      return 0; // Om den är oräfrndrad utgångsvärdet
+    });
+    console.table(todoArticlesCopy);
+  } if (sortByNameOfTodo.checked) {
+    todoArticlesCopy.sort((a, b) => {
+      if (a.toDoName > b.toDoName) {
+        return 1;
+      } if (a.toDoName < b.toDoName) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+return todoArticlesCopy;
+  /**
+   * Filter av todos
+   
+  if () {
+
+  } if () {
+
+  } if () {
+
+  }*/
+const gardenTodos = todoArticles.filter(todoArticles => todoArticles.category === 'Trädgård');
+console.table(gardenTodos);
+
+const handymanTodos = todoArticles.filter(todoArticles => todoArticles.category === 'Hantverkare');
+console.table(handymanTodos);
+
+const homeTodos = todoArticles.filter(todoArticles => todoArticles.category === 'Hus och hem');
+console.table(homeTodos);
+
+const allTodos = todoArticles;
+console.table(allTodos);
+
+}
+sortByCategory?.addEventListener('click', updateTodoList);
+sortByCreatedate?.addEventListener('click', updateTodoList);
+sortByDeadlinedate?.addEventListener('click', updateTodoList);
+sortByNameOfTodo?.addEventListener('click', updateTodoList);
+
 /**
  * Funktion som kör arrayn av todos och för över dem till HTML
  */
@@ -122,19 +194,22 @@ function updateTodoList() {
   if (toDoItemSection != null) {
     toDoItemSection.innerHTML = ''; // innerHTML töms varje gång funktionen körs
 
-    for (let i = 0; i < todoArticles.length; i++) { // loop som kör alla artiklarna, en i taget tills de är slut
+    let todoArticlesSortFiltreList = sortandfilterlist();
+
+    for (let i = 0; i < todoArticlesSortFiltreList.length; i++) {
+      // loop som kör alla artiklarna, en i taget tills de är slut
       toDoItemSection.innerHTML // HTML-artiklarnas grund som adderas i sektoinen för todosen.
       += `<article class="toDoItemClass" id="toDoItem">
       <div class="datePartInTODOItem">
-        <span class="todaysDateClass" id="todaysDate">${todoArticles[i].todaysDate}</span>
-        <span class="deadlineDateClass" id="deadlineDate">${todoArticles[i].deadlineDate}</span>
+        <span class="todaysDateClass" id="todaysDate">${todoArticlesSortFiltreList[i].todaysDate}</span>
+        <span class="deadlineDateClass" id="deadlineDate">${todoArticlesSortFiltreList[i].deadlineDate}</span>
       </div>
       <div id="categoryID" class="categoryDiv">
         <img id="iconImg" class="iconImgClass">
-        <span class="categoryClass" id="category">${todoArticles[i].category}</span>
+        <span class="categoryClass" id="category">${todoArticlesSortFiltreList[i].category}</span>
       </div>
-        <h2 class="toDoNameClass" id="toDoName">${todoArticles[i].toDoName}</h2>
-        <p class="descriptionClass" id="description">${todoArticles[i].description}</p>
+        <h2 class="toDoNameClass" id="toDoName">${todoArticlesSortFiltreList[i].toDoName}</h2>
+        <p class="descriptionClass" id="description">${todoArticlesSortFiltreList[i].description}</p>
       <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline"></p>
       <div class="todoButtonsDiv">
         <button class="deliteButtonClass" todoIndex='${i}' id="deliteButton">Radera</button>
@@ -205,48 +280,3 @@ function addNewTodoItem(e:MouseEvent) {
 }
 
 addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen. 
-
-const sortByCategory : HTMLFormElement | null = document.querySelector('#categoryRadio');
-const sortByCreatedate : HTMLFormElement | null = document.querySelector('#createDateRadio');
-const sortByDeadlinedate : HTMLFormElement | null = document.querySelector('#deadlineRadio');
-const sortByNameOfTodo : HTMLFormElement | null = document.querySelector('#toDoNameRadio');
-
-/**
- * Sortering av todos
- */
-function sortTodo() {
-  console.log("sortTodo");
-  if (sortByCreatedate.checked) { // Om radiobutton för skapandedatum är checkad
-    todoArticles.sort((a, b) => new Date(a.todaysDate) - new Date(b.todaysDate)); // sorteras listan datum i ordning
-  } if (sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
-    todoArticles.sort((a, b) => new Date(a.deadlineDate) - new Date(b.deadlineDate)); // sorteras listan datum i ordning
-  } if (sortByCategory.checked) { // Om radiobutton för kategori är checkad
-    todoArticles.sort((a, b) => { // Sorteras listan
-      if (a.category > b.category) { // i bokstavsordning
-        return 1;
-      } if (a.category < b.category) { // om den returnerar omvänd ordning
-        return -1; // Visar den falskt
-      }
-      return 0; // Om den är oräfrndrad utgångsvärdet
-    });
-    console.table(todoArticles);
-  } if (sortByNameOfTodo.checked) {
-    todoArticles.sort((a, b) => {
-      if (a.toDoName > b.toDoName) {
-        return 1;
-      } if (a.toDoName < b.toDoName) {
-        return -1;
-      }
-      return 0;
-    });
-  }
-  updateTodoList(); // Uppdaterar listan efter den sorterats
-}
-
-/*
- * Eventlistner som startar funktionen till sorteringen av todos
- */
-sortByCategory?.addEventListener('click', sortTodo);
-sortByCreatedate?.addEventListener('click', sortTodo);
-sortByDeadlinedate?.addEventListener('click', sortTodo);
-sortByNameOfTodo?.addEventListener('click', sortTodo);
