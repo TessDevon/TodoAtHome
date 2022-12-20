@@ -5,19 +5,20 @@ import './style/style.scss';
  * Lägga in HTML strukturen KLAR
  * Lägga till färgändring till kategorierna? KLAR
  * Funktion där man lägger till Todos KLART
- */
+ * Lägg till så det är två siffor i datumen, kolla Jennis film
+ * Se över att få deadlinedatum att se bättre ut MDN
+ * Aktivera ta bort TODO
+*/
 
 /* ATT GÖRA
  * Lägg till sparningar till LocalStorage för att spara de nya Todon.
- * Lägg till så det är två siffor i datumen, kolla Jennis film
- * Se över att få deadlinedatum att se bättre ut MDN
  * Tid:
  * Lägg till 5 dagar innan deadline med text i innerHTML
  * Lägg till röd skugga om deadlinen gått ut
  * Fler funktioner:
- * Aktivera ta bort TODO
  * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
- * Aktivera Klarknapp och flytta längst ner i listan med grön bakgrundsfärg.
+ * Filter?
+ * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
  */
 
 /* Hur använda lokal storage? Sist i projektet..?
@@ -123,8 +124,8 @@ function updateTodoList() { // funktion som kör arrayn av todos och för över 
         <span class="todaysDateClass" id="todaysDate">${todoArticles[i].todaysDate}</span>
         <span class="deadlineDateClass" id="deadlineDate">${todoArticles[i].deadlineDate}</span>
       </div>
-      <div class="categoryDiv" id="categoryID">
-        <img id="iconImg">
+      <div id="categoryID" class="categoryDiv">
+        <img id="iconImg" class="iconImgClass">
         <span class="categoryClass" id="category">${todoArticles[i].category}</span>
       </div>
         <h2 class="toDoNameClass" id="toDoName">${todoArticles[i].toDoName}</h2>
