@@ -11,7 +11,7 @@ import './style/style.scss';
 */
 
 /* ATT GÖRA
- * Lägg till sparningar till LocalStorage för att spara de nya Todon.
+
  * Tid:
  * Lägg till 5 dagar innan deadline med text i innerHTML
  * Lägg till röd skugga om deadlinen gått ut
@@ -19,9 +19,8 @@ import './style/style.scss';
  * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
  * Filter?
  * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
- */
-
-/* Hur använda lokal storage? Sist i projektet..?
+ * Lägg till sparningar till LocalStorage för att spara de nya Todon.
+  Hur använda lokal storage? Sist i projektet..?
   Lagra objekt, detta fall den nya Todon som användaren skapar:
   localStorage.setItem('todoArticleToAdd', JSN.stringify(todoArticleToAdd));
   // Görs värdena om till sträng för att lagras på storage
@@ -105,15 +104,21 @@ function addColorToCategorys() {
   }
 }
 
+/**
+ * Funktion som tar bort todos
+ */
 function removeTodo(e) {
-  const index = e.target.getAttribute('todoIndex');
-  if (index > -1) {
-    todoArticles.splice(index, 1);
-    updateTodoList();
+  const index = e.target.getAttribute('todoIndex'); // Väljer ut atributet todoIndex
+  if (index > -1) { // Om index finns
+    todoArticles.splice(index, 1); // så ska det aktuella indexet tas bort, endast ett index
+    updateTodoList(); // Uppdaterar nya listan
   }
 }
 
-function updateTodoList() { // funktion som kör arrayn av todos och för över dem till HTML
+/**
+ * Funktion som kör arrayn av todos och för över dem till HTML
+ */
+function updateTodoList() {
   if (toDoItemSection != null) {
     toDoItemSection.innerHTML = ''; // innerHTML töms varje gång funktionen körs
 
@@ -138,7 +143,7 @@ function updateTodoList() { // funktion som kör arrayn av todos och för över 
     </article>`;
     }
 
-    addColorToCategorys(); // kör funktionen för categorierna efter att listan uppdaterats 
+    addColorToCategorys(); // kör funktionen för categorierna efter att listan uppdaterats
     const deliteTodoButton : NodeListOf<Element> | null = document.querySelectorAll('#deliteButton');
 
     for (let i = 0; i < deliteTodoButton.length; i++) {
@@ -158,7 +163,10 @@ const radioButtonGarden : HTMLFormElement | null = document.querySelector('#cate
 const radioButtonHome : HTMLFormElement | null = document.querySelector('#categoryHouse');
 const radioButtonHandyman : HTMLFormElement | null = document.querySelector('#categoryHandyMan');
 
-function addNewTodoItem(e:MouseEvent) { // Funktion som startar ny todo.
+/**
+ * Funktion som startar ny tododatum för Todon
+ */
+function addNewTodoItem(e:MouseEvent) {
   const today = new Date(); // Hämtar upp dagens datum
   const year = today.getFullYear(); // Hämtar endast året
   const month = (String(today.getMonth() + 1).padStart(2, '0'));
@@ -168,6 +176,9 @@ function addNewTodoItem(e:MouseEvent) { // Funktion som startar ny todo.
   const todayYearMonthDay = year + '-' + month + '-' + day;
   // Dagens datum sätts ihop.
 
+  /**
+  * Sätter värdet i kategorin utifrån vilken radiobutton i formuläret som är ifyllt.
+  */
   let categoryValue;
   if (radioButtonGarden.checked) {
     categoryValue = 'Trädgård';
@@ -177,7 +188,10 @@ function addNewTodoItem(e:MouseEvent) { // Funktion som startar ny todo.
     categoryValue = 'Hantverkare';
   };
 
-  e.preventDefault();
+  e.preventDefault(); // Nollar knappens egenskaper som laddar om sidan vid tryck
+  /**
+   * Skapar variabel innehållande ett todo-objekt med den data som användaren fyllt i och skapat i sitt todo-formulär.
+   */
   const todoArticleToAdd = {
     todaysDate: todayYearMonthDay,
     deadlineDate: deadlineDateInTodo.value + (', ') + deadLineTimeInTodo.value,
@@ -185,11 +199,54 @@ function addNewTodoItem(e:MouseEvent) { // Funktion som startar ny todo.
     toDoName: headerTodo.value,
     description: descriptionTodo.value
   };
-  console.log(todoArticleToAdd);
+  todoArticles.push(todoArticleToAdd); // Objeket pushas till arrayn med todo-objekt
 
-  todoArticles.push(todoArticleToAdd);
-
-  updateTodoList();
+  updateTodoList(); // Körs för att få med det nya todo-objektet
 }
 
-addNewTodoButton.addEventListener('click', addNewTodoItem);
+addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen. 
+
+const sortByCategory : HTMLFormElement | null = document.querySelector('#categoryRadio');
+const sortByCreatedate : HTMLFormElement | null = document.querySelector('#createDateRadio');
+const sortByDeadlinedate : HTMLFormElement | null = document.querySelector('#deadlineRadio');
+const sortByNameOfTodo : HTMLFormElement | null = document.querySelector('#toDoNameRadio');
+
+/**
+ * Sortering av todos
+ */
+function sortTodo() {
+  console.log("sortTodo");
+  if (sortByCreatedate.checked) { // Om radiobutton för skapandedatum är checkad
+    todoArticles.sort((a, b) => new Date(a.todaysDate) - new Date(b.todaysDate)); // sorteras listan datum i ordning
+  } if (sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
+    todoArticles.sort((a, b) => new Date(a.deadlineDate) - new Date(b.deadlineDate)); // sorteras listan datum i ordning
+  } if (sortByCategory.checked) { // Om radiobutton för kategori är checkad
+    todoArticles.sort((a, b) => { // Sorteras listan
+      if (a.category > b.category) { // i bokstavsordning
+        return 1;
+      } if (a.category < b.category) { // om den returnerar omvänd ordning
+        return -1; // Visar den falskt
+      }
+      return 0; // Om den är oräfrndrad utgångsvärdet
+    });
+    console.table(todoArticles);
+  } if (sortByNameOfTodo.checked) {
+    todoArticles.sort((a, b) => {
+      if (a.toDoName > b.toDoName) {
+        return 1;
+      } if (a.toDoName < b.toDoName) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+  updateTodoList(); // Uppdaterar listan efter den sorterats
+}
+
+/*
+ * Eventlistner som startar funktionen till sorteringen av todos
+ */
+sortByCategory?.addEventListener('click', sortTodo);
+sortByCreatedate?.addEventListener('click', sortTodo);
+sortByDeadlinedate?.addEventListener('click', sortTodo);
+sortByNameOfTodo?.addEventListener('click', sortTodo);
