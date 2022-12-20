@@ -9,13 +9,12 @@ import './style/style.scss';
  * Se över att få deadlinedatum att se bättre ut MDN
  * Aktivera ta bort TODO
  * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
+ * Filtrering
 */
 
 /* ATT GÖRA
- * Tisdag:
- * Sorteringen
- * Feedbacka tentan i veckans utvärdering.
  * Onsdag:
+ * Rätta deliteknappen som inte hittar rätt index när listan är sorterad.
  * Lägga till 5 dagar innan deadline med text i innerHTML
  * Lägg till röd skugga och byt röda texten när tiden har gått ut.
  * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
@@ -87,7 +86,7 @@ function addColorToCategorys() {
   const articleTodo : NodeListOf<HTMLElement> = document.querySelectorAll('#toDoItem'); // hämnar artiklarna/todos
   const categoryDivAddIcon : NodeListOf<HTMLElement> = document.querySelectorAll('#iconImg');
   // hämtar img där ikonen ska in
-  console.log(categoryParts[0].innerHTML);
+  // console.log(categoryParts[0].innerHTML);
 
   for (let i = 0; i < categoryParts.length; i++) { // loop som kör igenom alla kategorier
     if (categoryParts[i].innerHTML === 'Trädgård') { // om kategorin är trädgård
@@ -124,7 +123,10 @@ const sortByCategory : HTMLFormElement | null = document.querySelector('#categor
 const sortByCreatedate : HTMLFormElement | null = document.querySelector('#createDateRadio');
 const sortByDeadlinedate : HTMLFormElement | null = document.querySelector('#deadlineRadio');
 const sortByNameOfTodo : HTMLFormElement | null = document.querySelector('#toDoNameRadio');
-
+const filtreGarden : HTMLFormElement | null = document.querySelector('#filtreGarden');
+const filtreHandyman : HTMLFormElement | null = document.querySelector('#filtreHandyman');
+const filtreHome : HTMLFormElement | null = document.querySelector('#filtreHome');
+const filtreAll : HTMLFormElement | null = document.querySelector('#filtreAll');
 /**
  * Sortering och filtering av todos
  */
@@ -158,34 +160,32 @@ function sortandfilterlist() {
       return 0;
     });
   }
-return todoArticlesCopy;
   /**
    * Filter av todos
-   
-  if () {
-
-  } if () {
-
-  } if () {
-
-  }*/
-const gardenTodos = todoArticles.filter(todoArticles => todoArticles.category === 'Trädgård');
-console.table(gardenTodos);
-
-const handymanTodos = todoArticles.filter(todoArticles => todoArticles.category === 'Hantverkare');
-console.table(handymanTodos);
-
-const homeTodos = todoArticles.filter(todoArticles => todoArticles.category === 'Hus och hem');
-console.table(homeTodos);
-
-const allTodos = todoArticles;
-console.table(allTodos);
-
+   * */
+  if (filtreGarden.checked) {
+    const gardenTodos = todoArticlesCopy.filter(todoArticlesCopy => todoArticlesCopy.category === 'Trädgård');
+    todoArticlesCopy = gardenTodos;
+  } if (filtreHandyman.checked) {
+    const handymanTodos = todoArticlesCopy.filter(todoArticlesCopy => todoArticlesCopy.category === 'Hantverkare');
+    todoArticlesCopy = handymanTodos;
+  } if (filtreHome.checked) {
+    const homeTodos = todoArticlesCopy.filter(todoArticlesCopy => todoArticlesCopy.category === 'Hus och hem');
+    todoArticlesCopy = homeTodos;
+  } if (filtreAll.checked) {
+    const allTodos = todoArticlesCopy;
+    todoArticlesCopy = allTodos;
+  }
+  return todoArticlesCopy;
 }
 sortByCategory?.addEventListener('click', updateTodoList);
 sortByCreatedate?.addEventListener('click', updateTodoList);
 sortByDeadlinedate?.addEventListener('click', updateTodoList);
 sortByNameOfTodo?.addEventListener('click', updateTodoList);
+filtreGarden?.addEventListener('click', updateTodoList);
+filtreHandyman?.addEventListener('click', updateTodoList);
+filtreHome?.addEventListener('click', updateTodoList);
+filtreAll?.addEventListener('click', updateTodoList);
 
 /**
  * Funktion som kör arrayn av todos och för över dem till HTML
