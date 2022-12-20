@@ -14,7 +14,7 @@ import './style/style.scss';
 /* ATT GÖRA
  * Tisdag:
  * Sorteringen
- * Feedbacka tentan i veckans utverdering.
+ * Feedbacka tentan i veckans utvärdering.
  * Onsdag:
  * Lägga till 5 dagar innan deadline med text i innerHTML
  * Lägg till röd skugga och byt röda texten när tiden har gått ut.
