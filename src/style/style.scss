@@ -66,6 +66,10 @@ flex-direction: column;
   padding-left: 2px;
 }
 
+.sortbuttons, .addNewTODOButton, .deliteTODOButton, .deliteButtonClass, .doneButtonClass, .categoryHouseClass, .categoryGardenClass, .categoryHandyManClass {
+  cursor: pointer;
+}
+
 /* --------------------------------------------------------------------------------
 ------------------ TODO LIST ITEM -------------------------------------------------
 -------------------------------------------------------------------------------- */
@@ -167,7 +171,9 @@ flex-direction: column;
   border: 5px solid rgb(57, 57, 136);
 }
 
-
+.deadlineCSS{
+  border: 5px solid red;
+}
 
 
 
