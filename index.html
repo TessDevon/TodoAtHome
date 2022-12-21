@@ -62,17 +62,17 @@
         </section>
         <section id="toDoItemSection"></section>
         <section class="addToTODO">
-          <form action="addToTODO">
+          <form id="formNewTodo" action="addToTODO">
             <h2 class="formLabels">Lägg till en TODO</h2>
             <label for="deadlineDate">
               <span class="formLabels">Deadline</span>
-              <input type="date" class="formInputs" id="deadlineDate">
+              <input required type="date" class="formInputs" id="deadlineDate">
               <input type="time" class="formInputs" id="deadLineTime">
             </label><br>
             <p class="categoryP"><b>Kategori</b></p>
             <div class="categoryFormDiv">
               <label class="categoryLabels" for="categoryGarden">
-                <input type="radio" name="category" id="categoryGarden" class="categoryGardenClass">
+                <input required type="radio" name="category" id="categoryGarden" class="categoryGardenClass">
                 <span class="categoryRadioSpans" id="radiospanGarden">Trädgård</span>
               </label>
               <label class="categoryLabels" for="categoryHouse">
@@ -83,18 +83,18 @@
                 <input type="radio" name="category" id="categoryHandyMan" class="categoryHandyManClass">
                 <span class="categoryRadioSpans" id="radiospanHandyman">Hantverkare</span>
               </label>
-            </div>
+            </div><br>
             <label for="nameOfToDo">
               <span class="formLabels" id="formHeader">Rubrik</span>
-              <input type="text" class="formInputs" id="nameOfToDo">
+              <input required type="text" class="formInputs" id="nameOfToDo">
             </label><br>
             <label for="descriptionOfToDo">
               <span class="formLabels" id="descriptionOfTodoSpan">Beskrivning</span>
-              <textarea class="forminputs" id="descriptionOfTodoArea"></textarea>
+              <textarea required class="forminputs" id="descriptionOfTodoArea"></textarea>
             </label><br>
             <div class="addNewTODOButtonsDiv">
               <input type="reset" class="deliteTODOButton" value="Radera TODO">
-              <button class="addNewTODOButton" id="addNewTodoButtonID">Lägg till TODO</button>
+              <button disabled class="addNewTODOButton" id="addNewTodoButtonID">Lägg till TODO</button>
             </div>  
           </form>
         </section>

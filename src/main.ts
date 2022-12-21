@@ -10,17 +10,17 @@ import './style/style.scss';
  * Aktivera ta bort TODO
  * Sortering, startdatum, deadline, namn (i bokstavsordning) och visas i kategori (i bokstavsordning)?
  * Filtrering
+ * Lägga till 5 dagar innan deadline med text i innerHTML
+ * Lägg till röd skugga och byt röda texten när tiden har gått ut.
 */
 
 /* ATT GÖRA
- * Onsdag:
+ * Torsdag:
  * Rätta deliteknappen som inte hittar rätt index när listan är sorterad.
- * Lägga till 5 dagar innan deadline med text i innerHTML
- * Lägg till röd skugga och byt röda texten när tiden har gått ut.
  * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
  * Lägg till sparningar till LocalStorage för att spara de nya Todon.
- * Torsdag:
- * Göra klart det som inte är klart och felsöka och fixa. Lämna in uppgiften?
+ * Fredag:
+ * Handelning med Jenni om TS
  * Altermatvt om jag ej är klart lämna in i mellandagarna.
  */
 
@@ -278,11 +278,35 @@ function addNewTodoItem(e:MouseEvent) {
     toDoName: headerTodo.value,
     description: descriptionTodo.value
   };
-  console.log(deadlineDate);
- 
+
   todoArticles.push(todoArticleToAdd); // Objeket pushas till arrayn med todo-objekt
 
   updateTodoList(); // Körs för att få med det nya todo-objektet
+  document.getElementById("formNewTodo").reset();
 }
 
 addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen
+deadlineDate.addEventListener('input', activateAddButton);
+deadLineTime.addEventListener('input', activateAddButton);
+categoryGarden.addEventListener('click', activateAddButton);
+categoryHouse.addEventListener('click', activateAddButton);
+categoryHandyMan.addEventListener('click', activateAddButton);
+nameOfToDo.addEventListener('input', activateAddButton);
+descriptionOfTodoArea.addEventListener('input', activateAddButton);
+
+const addButton: HTMLFormElement | null = document.querySelector('#addNewTodoButtonID');
+const deadlineDateCheck : HTMLFormElement | null = document.querySelector('#deadlineDate');
+const todoNameCheck : HTMLFormElement | null = document.querySelector('#nameOfToDo');
+const descriptionTodoCheck : HTMLFormElement | null = document.querySelector('#descriptionOfTodoArea');
+const gardenTodoscheck : HTMLFormElement | null = document.querySelector('#categoryGarden');
+const homeTodosCheck : HTMLFormElement | null = document.querySelector('#categoryHouse');
+const handymanTodosCheck : HTMLFormElement | null = document.querySelector('#categoryHandyMan');
+
+function activateAddButton() {
+  if (deadlineDateCheck.value !== '' && todoNameCheck.value !== '' && descriptionTodoCheck.value !== ''
+    && (gardenTodoscheck.checked || homeTodosCheck.checked || handymanTodosCheck.checked)) {
+    addButton.removeAttribute('disabled');
+  } else {
+    addButton.setAttribute('disabled', '');
+  }
+}
