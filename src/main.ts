@@ -1,10 +1,10 @@
 import './style/style.scss';
 
 /* KLART
- * Loop där objkekten körs i en array KLAR
- * Lägga in HTML strukturen KLAR
- * Lägga till färgändring till kategorierna? KLAR
- * Funktion där man lägger till Todos KLART
+ * Loop där objkekten körs i en array
+ * Lägga in HTML strukturen
+ * Lägga till färgändring till kategorierna?
+ * Funktion där man lägger till Todos
  * Lägg till så det är två siffor i datumen, kolla Jennis film
  * Se över att få deadlinedatum att se bättre ut MDN
  * Aktivera ta bort TODO
@@ -24,25 +24,13 @@ import './style/style.scss';
  * Altermatvt om jag ej är klart lämna in i mellandagarna.
  */
 
-/* Hur använda lokal storage? Sist i projektet..?
-  Lagra objekt, detta fall den nya Todon som användaren skapar:
-  localStorage.setItem('todoArticleToAdd', JSN.stringify(todoArticleToAdd));
-  // Görs värdena om till sträng för att lagras på storage
-  console.log(JSON.parse(localStroage.getItem('todoArticleToAdd')));
-  // Då görs strängen om till objekt igen och kan användas i koden.
-  Lagra Arrayer, detta fall. De arrayer som programmet skriver ut:
-  localStorage.setItem('todoArticles', todoArticles); // Konverteras till sträng
-  console.log(localStorage.getItem('todoArticles').split(',')); // Processa/konventera tillbaka till rätt format.
-  localStorage.clear(); // Rensar bort data från programet i localStroage.
-*/
-
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
 
 const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
   {
     todaysDate: '2022-12-12',
-    deadlineDate: '2023-03-15, 05:30',
+    deadlineDate: '2022-12-23, 05:30',
     category: 'Trädgård',
     toDoName: 'Första trädgårdstunnan',
     description: 'FÖrsta tömningen av trädgårdstunnan. Fyll på under veckan!',
@@ -54,7 +42,7 @@ const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
     description: 'Fråga om olika förbränningsalternativ.',
   }, {
     todaysDate: '2022-12-14',
-    deadlineDate: '2023-06-30, 08:00',
+    deadlineDate: '2022-12-12, 08:00',
     category: 'Hus och hem',
     toDoName: 'Måla om garaget',
     description: 'Målning av garage denna veckan med förtvätt och målning.',
@@ -82,6 +70,7 @@ const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
 * Funktion som stylar och adderar ikoner till kategorierna
 */
 function addColorToCategorys() {
+  const deadlinesDateDiv : NodeListOf<HTMLElement> = document.querySelectorAll('#deadlineDateDiv');
   const categoryParts : NodeListOf<HTMLElement> = document.querySelectorAll('#category'); // hämtar kategorin
   const articleTodo : NodeListOf<HTMLElement> = document.querySelectorAll('#toDoItem'); // hämnar artiklarna/todos
   const categoryDivAddIcon : NodeListOf<HTMLElement> = document.querySelectorAll('#iconImg');
@@ -89,6 +78,9 @@ function addColorToCategorys() {
   // console.log(categoryParts[0].innerHTML);
 
   for (let i = 0; i < categoryParts.length; i++) { // loop som kör igenom alla kategorier
+    if ((new Date() >= new Date(deadlinesDateDiv[i].innerHTML))) {
+      articleTodo[i].classList.add('deadlineCSS');
+    }
     if (categoryParts[i].innerHTML === 'Trädgård') { // om kategorin är trädgård
       categoryParts[i].classList.add('green'); // ändras färgen till grön
       articleTodo[i].classList.add('greenbordered'); // Todon får en grön ram
@@ -127,11 +119,12 @@ const filtreGarden : HTMLFormElement | null = document.querySelector('#filtreGar
 const filtreHandyman : HTMLFormElement | null = document.querySelector('#filtreHandyman');
 const filtreHome : HTMLFormElement | null = document.querySelector('#filtreHome');
 const filtreAll : HTMLFormElement | null = document.querySelector('#filtreAll');
+
 /**
  * Sortering och filtering av todos
  */
 function sortandfilterlist() {
-  let todoArticlesCopy = [...todoArticles];
+  let todoArticlesCopy = [...todoArticles]; // Gör en kopia av arrayns med todos. Annars skrives dessa över när man kör filter.
   /**
    * Sortering av todos
    */
@@ -187,6 +180,17 @@ filtreHandyman?.addEventListener('click', updateTodoList);
 filtreHome?.addEventListener('click', updateTodoList);
 filtreAll?.addEventListener('click', updateTodoList);
 
+function dueText(todoArticle) {
+console.log(todoArticle.deadlineDate);
+  if (new Date() >= new Date(todoArticle.deadlineDate)) {
+    return 'Deadline är uppnådd!';
+  }
+  if (Number(new Date(todoArticle.deadlineDate)) < Number(new Date()) + (5 * 24 * 60 * 60 * 1000)) {
+    return 'Nu är det inom fem dagar till deadline!';
+  }
+  return '';
+}
+
 /**
  * Funktion som kör arrayn av todos och för över dem till HTML
  */
@@ -202,7 +206,7 @@ function updateTodoList() {
       += `<article class="toDoItemClass" id="toDoItem">
       <div class="datePartInTODOItem">
         <span class="todaysDateClass" id="todaysDate">${todoArticlesSortFiltreList[i].todaysDate}</span>
-        <span class="deadlineDateClass" id="deadlineDate">${todoArticlesSortFiltreList[i].deadlineDate}</span>
+        <span class="deadlineDateClass" id="deadlineDateDiv">${todoArticlesSortFiltreList[i].deadlineDate}</span>
       </div>
       <div id="categoryID" class="categoryDiv">
         <img id="iconImg" class="iconImgClass">
@@ -210,7 +214,7 @@ function updateTodoList() {
       </div>
         <h2 class="toDoNameClass" id="toDoName">${todoArticlesSortFiltreList[i].toDoName}</h2>
         <p class="descriptionClass" id="description">${todoArticlesSortFiltreList[i].description}</p>
-      <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline"></p>
+      <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline">${dueText(todoArticlesSortFiltreList[i])}</p>
       <div class="todoButtonsDiv">
         <button class="deliteButtonClass" todoIndex='${i}' id="deliteButton">Radera</button>
         <button class="doneButtonClass" todoIndex='${i}' id="doneButton">Markera som klar</button>
@@ -274,9 +278,11 @@ function addNewTodoItem(e:MouseEvent) {
     toDoName: headerTodo.value,
     description: descriptionTodo.value
   };
+  console.log(deadlineDate);
+ 
   todoArticles.push(todoArticleToAdd); // Objeket pushas till arrayn med todo-objekt
 
   updateTodoList(); // Körs för att få med det nya todo-objektet
 }
 
-addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen. 
+addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen
