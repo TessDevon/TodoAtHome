@@ -120,7 +120,7 @@ flex-direction: column;
 
 .fiveDaysToDeadlineP {
   color: red;
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 25px;
 }
 
@@ -233,6 +233,21 @@ label span {
 
 .categoryP{
   margin: 15px;
+  margin-left: 0px;
+}
+
+.dateToInline{
+  display: flex;
+}
+
+.dateToInline, .formLabelsDeadline, .dateToInline{
+  display: block;
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.formLabelsDeadline{
+  font-weight: 600;
 }
 
 /* --------------------------------------------------------------------------------
@@ -348,9 +363,62 @@ footer{
     margin-bottom: 20px;
   }
 
+  .formLabelsDeadline{
+    font-size: 1.5rem;
+  }
+
   .categoryClass {
     font-size: 1.7rem;
   }
+
+  .dateToInline{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .dateToInline{
+    display: inline-block;
+  }
+
+  .fiveDaysToDeadlineP {
+    font-size: 2rem;
+  }
+
+  .dateToInlineDiv{
+    display: flex;
+    gap: 20px;
+  }
+
+  .dateToInline{
+    font-size: 1,5px;
+  }
+
+  .formLabelsDeadline{
+    display: block;
+    margin: 10px;
+    margin-left: 0px;
+  }
+
+  .dateToInline, .formLabelsDeadline, .dateToInline{
+    display: inline-block;
+    margin: 10px;
+    margin-left: 0px;
+  }
+
+  .formInputs2{
+    font-size: 1.5rem;
+  }
+
+  .forminputs2{
+    width: 400px;
+    height: 100px;
+  }
+
+  .nameOfTodoClass{
+    width: 400px;
+    height: 50px;
+  }
+
 }
 
 @media screen and (min-width: 1400px){
@@ -401,5 +469,16 @@ footer{
   .radioButtonSpan {
     font-size: 1.7rem;
   }
+
+  .forminputs2{
+    width: 510px;
+    height: 100px;
+  }
+
+  .nameOfTodoClass{
+    width: 510px;
+    height: 50px;
+  }
+
 }
 

@@ -12,16 +12,14 @@ import './style/style.scss';
  * Filtrering
  * Lägga till 5 dagar innan deadline med text i innerHTML
  * Lägg till röd skugga och byt röda texten när tiden har gått ut.
+ * Rätta deliteknappen som inte hittar rätt index när listan är sorterad.
+ * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
+ * Kolla av validering och Lighthouse bifoga filerna.
 */
 
 /* ATT GÖRA
- * Torsdag:
- * Rätta deliteknappen som inte hittar rätt index när listan är sorterad.
- * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
  * Lägg till sparningar till LocalStorage för att spara de nya Todon.
- * Fredag:
- * Handelning med Jenni om TS
- * Altermatvt om jag ej är klart lämna in i mellandagarna.
+ * Se över TS och lägg till kodkommnetarer.
  */
 
 const toDoItemSection = document.querySelector('#toDoItemSection');
@@ -251,7 +249,6 @@ filtreHome?.addEventListener('click', updateTodoList);
 filtreAll?.addEventListener('click', updateTodoList);
 
 function dueText(todoArticle) {
-console.log(todoArticle.deadlineDate);
   if (new Date() >= new Date(todoArticle.deadlineDate)) {
     return 'Deadline är uppnådd!';
   }
@@ -388,4 +385,3 @@ function activateAddButton() {
     addButton.setAttribute('disabled', '');
   }
 }
-
