@@ -30,40 +30,53 @@ const toDoItemSection = document.querySelector('#toDoItemSection');
 const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
   {
     todaysDate: '2022-12-12',
-    deadlineDate: '2022-12-23, 05:30',
+    deadlineDate: '2023-03-06, 05:30',
     category: 'Trädgård',
     toDoName: 'Första trädgårdstunnan',
-    description: 'FÖrsta tömningen av trädgårdstunnan. Fyll på under veckan!',
+    description: 'Första tömningen av trädgårdstunnan. Fyll på under veckan!',
+    isCompleted: false,
   }, {
     todaysDate: '2022-12-12',
     deadlineDate: '2023-05-30, 15:30',
     category: 'Hantverkare',
     toDoName: 'Sotaren påbesök',
     description: 'Fråga om olika förbränningsalternativ.',
+    isCompleted: false,
   }, {
     todaysDate: '2022-12-14',
-    deadlineDate: '2022-12-12, 08:00',
-    category: 'Hus och hem',
-    toDoName: 'Måla om garaget',
-    description: 'Målning av garage denna veckan med förtvätt och målning.',
-  }, {
-    todaysDate: '2022-12-14',
-    deadlineDate: '2023-03-05, 09:00',
+    deadlineDate: '2023-02-12, 08:00',
     category: 'Trädgård',
+    toDoName: 'Grönsakslandet',
+    description: 'Gräva ner grenar i komposten.',
+    isCompleted: false,
+  }, {
+    todaysDate: '2022-12-14',
+    deadlineDate: '2023-02-05, 09:00',
+    category: 'Hus och hem',
     toDoName: 'Första sådden',
     description: 'Börja förså Physalis och Vattenmelon.',
+    isCompleted: false,
   }, {
     todaysDate: '2022-12-14',
     deadlineDate: '2023-04-15, 10:00',
     category: 'Trädgård',
     toDoName: 'Andra sådden',
     description: 'Dags att förså tomat och gurka',
+    isCompleted: false,
   }, {
     todaysDate: '2022-12-13',
-    deadlineDate: '2023-03-15, 5:30',
-    category: 'Trädgård',
-    toDoName: 'Första trädgårdstunnan',
+    deadlineDate: '2022-12-26, 5:30',
+    category: 'Hantverkare',
+    toDoName: 'El-killen ska fixa utebelysningen',
     description: 'Första tömningen av trädgårdstunnan. Fyll på under veckan!',
+    isCompleted: false,
+  }, {
+    todaysDate: '2022-12-14',
+    deadlineDate: '2022-12-12, 08:00',
+    category: 'Hus och hem',
+    toDoName: 'Julpynta',
+    description: 'Hela huset.',
+    isCompleted: false,
   }];
 
 /**
@@ -75,9 +88,17 @@ function addColorToCategorys() {
   const articleTodo : NodeListOf<HTMLElement> = document.querySelectorAll('#toDoItem'); // hämnar artiklarna/todos
   const categoryDivAddIcon : NodeListOf<HTMLElement> = document.querySelectorAll('#iconImg');
   // hämtar img där ikonen ska in
-  // console.log(categoryParts[0].innerHTML);
+
+  const pickUpIsCompliteButton = document.querySelectorAll('#doneButton');
+  const ComplietedButtonDeliteRedText = document.querySelectorAll('#fiveDaysToDeadline');
 
   for (let i = 0; i < categoryParts.length; i++) { // loop som kör igenom alla kategorier
+    const index = pickUpIsCompliteButton[i].getAttribute('todoIndex');
+    if (todoArticles[index].isCompleted) { // Den ska läggas längst ner i listan
+      pickUpIsCompliteButton[i].innerHTML = 'Klar!'; // pickUpIsCompliteButton[i].classList.add('IsComplietedButton')
+      articleTodo[i].classList.add('IsComplietedBorder');
+      ComplietedButtonDeliteRedText[i].innerHTML = '';
+    }
     if ((new Date() >= new Date(deadlinesDateDiv[i].innerHTML))) {
       articleTodo[i].classList.add('deadlineCSS');
     }
@@ -111,6 +132,14 @@ function removeTodo(e) {
   }
 }
 
+function moveMarckedTodoLastPlace(e) {
+  const index = e.target.getAttribute('todoIndex');
+  if (index > -1) {
+    todoArticles[index].isCompleted = true;
+    updateTodoList();
+  }
+}
+
 const sortByCategory : HTMLFormElement | null = document.querySelector('#categoryRadio');
 const sortByCreatedate : HTMLFormElement | null = document.querySelector('#createDateRadio');
 const sortByDeadlinedate : HTMLFormElement | null = document.querySelector('#deadlineRadio');
@@ -124,17 +153,43 @@ const filtreAll : HTMLFormElement | null = document.querySelector('#filtreAll');
  * Sortering och filtering av todos
  */
 function sortandfilterlist() {
-  let todoArticlesCopy = [...todoArticles]; // Gör en kopia av arrayns med todos. Annars skrives dessa över när man kör filter.
+  let todoArticlesCopy = [...todoArticles];
+  // Gör en kopia av arrayns med todos. Annars skrives dessa över när man kör filter.
+  for (let i = 0; i < todoArticlesCopy.length; i++) {
+    todoArticlesCopy[i]['todoArticlesIndex'] = i;
+    // kopian har en egenskap av orginalets index, läggs till till objekten
+  }
   /**
    * Sortering av todos
    */
   if (sortByCreatedate.checked) { // Om radiobutton för skapandedatum är checkad
-    todoArticlesCopy.sort((a, b) => new Date(a.todaysDate) - new Date(b.todaysDate)); // sorteras listan datum i ordning
-  } if (sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
-    todoArticlesCopy.sort((a, b) => new Date(a.deadlineDate) - new Date(b.deadlineDate)); 
+    todoArticlesCopy.sort((a, b) => {
+      if (a.isCompleted && !b.isCompleted) {
+        return 1;
+      }
+      if (!a.isCompleted && b.isCompleted) {
+        return -1;
+      }
+      return new Date(a.todaysDate) - new Date(b.todaysDate)
+    }); // sorteras listan datum i ordning
+  } else if (sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
+    todoArticlesCopy.sort((a, b) => {
+      if (a.isCompleted && !b.isCompleted) {
+        return 1;
+      }
+      if (!a.isCompleted && b.isCompleted) {
+        return -1;
+      }
+      return new Date(a.deadlineDate) - new Date(b.deadlineDate)});
     // sorteras listan datum i ordning
-  } if (sortByCategory.checked) { // Om radiobutton för kategori är checkad
+  } else if (sortByCategory.checked) { // Om radiobutton för kategori är checkad
     todoArticlesCopy.sort((a, b) => { // Sorteras listan
+      if (a.isCompleted && !b.isCompleted) {
+        return 1;
+      }
+      if (!a.isCompleted && b.isCompleted) {
+        return -1;
+      }
       if (a.category > b.category) { // i bokstavsordning
         return 1;
       } if (a.category < b.category) { // om den returnerar omvänd ordning
@@ -143,14 +198,29 @@ function sortandfilterlist() {
       return 0; // Om den är oräfrndrad utgångsvärdet
     });
     console.table(todoArticlesCopy);
-  } if (sortByNameOfTodo.checked) {
+  } else if (sortByNameOfTodo.checked) {
     todoArticlesCopy.sort((a, b) => {
+      if (a.isCompleted && !b.isCompleted) {
+        return 1;
+      }
+      if (!a.isCompleted && b.isCompleted) {
+        return -1;
+      }
       if (a.toDoName > b.toDoName) {
         return 1;
       } if (a.toDoName < b.toDoName) {
         return -1;
       }
       return 0;
+    });
+  } else {
+    todoArticlesCopy.sort((a, b) => {
+      if (a.isCompleted && !b.isCompleted) {
+        return 1;
+      }
+      if (!a.isCompleted && b.isCompleted) {
+        return -1;
+      }
     });
   }
   /**
@@ -216,17 +286,24 @@ function updateTodoList() {
         <p class="descriptionClass" id="description">${todoArticlesSortFiltreList[i].description}</p>
       <p class="fiveDaysToDeadlineP" id="fiveDaysToDeadline">${dueText(todoArticlesSortFiltreList[i])}</p>
       <div class="todoButtonsDiv">
-        <button class="deliteButtonClass" todoIndex='${i}' id="deliteButton">Radera</button>
-        <button class="doneButtonClass" todoIndex='${i}' id="doneButton">Markera som klar</button>
+        <button class="deliteButtonClass" todoIndex='${todoArticlesSortFiltreList[i].todoArticlesIndex}' 
+        id="deliteButton">Radera</button>
+        <button class="doneButtonClass" todoIndex='${todoArticlesSortFiltreList[i].todoArticlesIndex}' 
+        id="doneButton">Markera som klar</button>
       </div>      
     </article>`;
     }
 
     addColorToCategorys(); // kör funktionen för categorierna efter att listan uppdaterats
     const deliteTodoButton : NodeListOf<Element> | null = document.querySelectorAll('#deliteButton');
+    const markDoneTodo : NodeListOf<Element> | null = document.querySelectorAll('#doneButton');
+    console.log(markDoneTodo);
 
     for (let i = 0; i < deliteTodoButton.length; i++) {
       deliteTodoButton[i].addEventListener('click', removeTodo);
+    }
+    for (let i = 0; i < markDoneTodo.length; i++) {
+      markDoneTodo[i].addEventListener('click', moveMarckedTodoLastPlace);
     }
   }
 }
@@ -276,7 +353,8 @@ function addNewTodoItem(e:MouseEvent) {
     deadlineDate: deadlineDateInTodo.value + (', ') + deadLineTimeInTodo.value,
     category: categoryValue,
     toDoName: headerTodo.value,
-    description: descriptionTodo.value
+    description: descriptionTodo.value,
+    isCompleted: false,
   };
 
   todoArticles.push(todoArticleToAdd); // Objeket pushas till arrayn med todo-objekt
@@ -310,3 +388,4 @@ function activateAddButton() {
     addButton.setAttribute('disabled', '');
   }
 }
+
