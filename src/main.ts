@@ -1,6 +1,6 @@
 import './style/style.scss';
 
-/* KLART
+/* KLARA TODO
  * Loop där objkekten körs i en array
  * Lägga in HTML strukturen
  * Lägga till färgändring till kategorierna?
@@ -22,15 +22,19 @@ import './style/style.scss';
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
 
-let todoArticles = [ // arrayn med färdigskrivna Todo-objekt
-  /* {
-    todaysDate: '',
-    deadlineDate: '',
-    category: '',
-    toDoName: '',
-    description: '',
-    isCompleted: false,
-  }, */{
+type Todo = {
+  todaysDate: string,
+  deadlineDate: string,
+  category: 'Trädgård' | 'Hantverkare' | 'Hus och hem',
+  toDoName: string,
+  description: string,
+  isCompleted: boolean,
+  todoArticlesIndex?: number,
+};
+
+let todoArticles: Todo[] = [ // arrayn med färdigskrivna Todo-objekt
+
+  {
     todaysDate: '2022-12-12',
     deadlineDate: '2023-03-06, 05:30',
     category: 'Trädgård',
@@ -97,10 +101,12 @@ function addColorToCategorys() {
 
   for (let i = 0; i < categoryParts.length; i++) { // loop som kör igenom alla kategorier
     const index = pickUpIsCompliteButton[i].getAttribute('todoIndex');
-    if (todoArticles[index].isCompleted) { // om klarmarkerad så läggs todon längst ner i listan
-      pickUpIsCompliteButton[i].innerHTML = 'Klar!'; // klarknappens text ändras
-      articleTodo[i].classList.add('IsComplietedBorder'); // lägger till grå ram
-      ComplietedButtonDeliteRedText[i].innerHTML = ''; // den röda texten töms
+    if (!Number.isNaN(index)) {
+      if (todoArticles[index].isCompleted) { // om klarmarkerad så läggs todon längst ner i listan
+        pickUpIsCompliteButton[i].innerHTML = 'Klar!'; // klarknappens text ändras
+        articleTodo[i].classList.add('IsComplietedBorder'); // lägger till grå ram
+        ComplietedButtonDeliteRedText[i].innerHTML = ''; // den röda texten töms
+      }
     }
     if ((new Date() >= new Date(deadlinesDateDiv[i].innerHTML))) {
       articleTodo[i].classList.add('deadlineCSS'); // lägger till röd ram
@@ -137,16 +143,16 @@ const filtreAll : HTMLFormElement | null = document.querySelector('#filtreAll');
  * Sortering och filtering av todos
  */
 function sortandfilterlist() {
-  let todoArticlesCopy = [...todoArticles];
+  let todoArticlesCopy: Todo[] = [...todoArticles];
   // Gör en kopia av arrayns med todos. Annars skrives dessa över när man kör filter.
   for (let i = 0; i < todoArticlesCopy.length; i++) {
-    todoArticlesCopy[i]['todoArticlesIndex'] = i;
+    todoArticlesCopy[i].todoArticlesIndex = i;
     // kopian har en egenskap av orginalets index, läggs till till objekten
   }
   /**
    * Sortering av todos
    */
-  if (sortByCreatedate.checked) { // Om radiobutton för skapandedatum är checkad
+  if (sortByCreatedate != null && sortByCreatedate.checked) { // Om radiobutton för skapandedatum är checkad
     todoArticlesCopy.sort((a, b) => {
       if (a.isCompleted && !b.isCompleted) {
         return 1;
@@ -154,9 +160,9 @@ function sortandfilterlist() {
       if (!a.isCompleted && b.isCompleted) {
         return -1;
       }
-      return new Date(a.todaysDate) - new Date(b.todaysDate)
+      return new Date(a.todaysDate).getTime() - new Date(b.todaysDate).getTime(); // hämtar epoch-time
     }); // sorteras listan datum i ordning
-  } else if (sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
+  } else if (sortByDeadlinedate != null && sortByDeadlinedate.checked) { // Om radiobutton deadline datum är checked
     todoArticlesCopy.sort((a, b) => {
       if (a.isCompleted && !b.isCompleted) {
         return 1;
@@ -164,9 +170,10 @@ function sortandfilterlist() {
       if (!a.isCompleted && b.isCompleted) {
         return -1;
       }
-      return new Date(a.deadlineDate) - new Date(b.deadlineDate)});
+      return new Date(a.deadlineDate).getTime() - new Date(b.deadlineDate).getTime();
+    });
     // sorteras listan datum i ordning
-  } else if (sortByCategory.checked) { // Om radiobutton för kategori är checkad
+  } else if (sortByCategory != null && sortByCategory.checked) { // Om radiobutton för kategori är checkad
     todoArticlesCopy.sort((a, b) => { // Sorteras listan
       if (a.isCompleted && !b.isCompleted) {
         return 1;
@@ -181,7 +188,7 @@ function sortandfilterlist() {
       }
       return 0; // Om den är oräfrndrad utgångsvärdet
     });
-  } else if (sortByNameOfTodo.checked) {
+  } else if (sortByNameOfTodo != null && sortByNameOfTodo.checked) {
     todoArticlesCopy.sort((a, b) => {
       if (a.isCompleted && !b.isCompleted) {
         return 1;
@@ -210,23 +217,23 @@ function sortandfilterlist() {
   /**
    * Filter av todos
    * */
-  if (filtreGarden.checked) {
+  if (filtreGarden != null && filtreGarden.checked) {
     const gardenTodos = todoArticlesCopy.filter((todoGarden) => todoGarden.category === 'Trädgård');
     todoArticlesCopy = gardenTodos;
-  } if (filtreHandyman.checked) {
+  } if (filtreHandyman != null && filtreHandyman.checked) {
     const handymanTodos = todoArticlesCopy.filter((todoHandyman) => todoHandyman.category === 'Hantverkare');
     todoArticlesCopy = handymanTodos;
-  } if (filtreHome.checked) {
+  } if (filtreHome != null && filtreHome.checked) {
     const homeTodos = todoArticlesCopy.filter((todosHome) => todosHome.category === 'Hus och hem');
     todoArticlesCopy = homeTodos;
-  } if (filtreAll.checked) {
+  } if (filtreAll != null && filtreAll.checked) {
     const allTodos = todoArticlesCopy;
     todoArticlesCopy = allTodos;
   }
   return todoArticlesCopy;
 }
 
-function dueText(todoArticle) {
+function dueText(todoArticle: Todo) {
   if (new Date() >= new Date(todoArticle.deadlineDate)) {
     return 'Deadline är uppnådd!';
   }
@@ -290,8 +297,8 @@ function updateTodoList() {
 /**
  * Funktion som tar bort todos
  */
-function removeTodo(e) {
-  const index = e.target.getAttribute('todoIndex'); // Väljer ut atributet todoIndex
+function removeTodo(e: Event) {
+  const index = e.target.getAttribute('todoIndex'); // Väljer ut attributet todoIndex
   if (index > -1) { // Om index finns
     todoArticles.splice(index, 1); // så ska det aktuella indexet tas bort, endast ett index
     updateTodoList(); // Uppdaterar nya listan
@@ -299,7 +306,7 @@ function removeTodo(e) {
 }
 
 // Flyttar den märkta todon längst ner i flödet.
-function moveMarckedTodoLastPlace(e) {
+function moveMarckedTodoLastPlace(e: Event) {
   const index = e.target.getAttribute('todoIndex');
   if (index > -1) {
     todoArticles[index].isCompleted = true;
@@ -349,11 +356,11 @@ function addNewTodoItem(e:MouseEvent) {
   * Sätter värdet i kategorin utifrån vilken radiobutton i formuläret som är ifyllt.
   */
   let categoryValue;
-  if (radioButtonGarden.checked) {
+  if (radioButtonGarden != null && radioButtonGarden.checked) {
     categoryValue = 'Trädgård';
-  } else if (radioButtonHome.checked) {
+  } else if (radioButtonHome != null && radioButtonHome.checked) {
     categoryValue = 'Hus och hem';
-  } else if (radioButtonHandyman.checked) {
+  } else if (radioButtonHandyman != null && radioButtonHandyman.checked) {
     categoryValue = 'Hantverkare';
   }
 
@@ -376,7 +383,7 @@ function addNewTodoItem(e:MouseEvent) {
   document.getElementById("formNewTodo").reset();
 }
 
-addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen
+addNewTodoButton?.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen
 
 const addButton: HTMLFormElement | null = document.querySelector('#addNewTodoButtonID');
 const deadlineDateCheck : HTMLFormElement | null = document.querySelector('#deadlineDate');
@@ -391,17 +398,21 @@ const handymanTodosCheck : HTMLFormElement | null = document.querySelector('#cat
  * Kräver att fälten inte är tomma för att kunna lägga till en todo.
  */
 function activateAddButton() {
-  if (deadlineDateCheck.value !== '' && todoNameCheck.value !== '' && descriptionTodoCheck.value !== ''
-    && (gardenTodoscheck.checked || homeTodosCheck.checked || handymanTodosCheck.checked)) {
-    addButton.removeAttribute('disabled');
+  if (deadlineDateCheck != null && deadlineDateCheck.value !== ''
+  && todoNameCheck != null && todoNameCheck.value !== ''
+  && descriptionTodoCheck != null && descriptionTodoCheck.value !== ''
+  && ((gardenTodoscheck != null && gardenTodoscheck.checked)
+  || (homeTodosCheck != null && homeTodosCheck.checked)
+  || (handymanTodosCheck != null && handymanTodosCheck.checked))) {
+    addButton?.removeAttribute('disabled');
   } else {
-    addButton.setAttribute('disabled', '');
+    addButton?.setAttribute('disabled', '');
   }
 }
 
-deadlineDateCheck.addEventListener('input', activateAddButton);
-gardenTodoscheck.addEventListener('click', activateAddButton);
-homeTodosCheck.addEventListener('click', activateAddButton);
-handymanTodosCheck.addEventListener('click', activateAddButton);
-todoNameCheck.addEventListener('input', activateAddButton);
-descriptionTodoCheck.addEventListener('input', activateAddButton);
+deadlineDateCheck?.addEventListener('input', activateAddButton);
+gardenTodoscheck?.addEventListener('click', activateAddButton);
+homeTodosCheck?.addEventListener('click', activateAddButton);
+handymanTodosCheck?.addEventListener('click', activateAddButton);
+todoNameCheck?.addEventListener('input', activateAddButton);
+descriptionTodoCheck?.addEventListener('input', activateAddButton);
