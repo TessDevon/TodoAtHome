@@ -15,18 +15,22 @@ import './style/style.scss';
  * Rätta deliteknappen som inte hittar rätt index när listan är sorterad.
  * Aktivera Klarknapp och flytta längst ner i listan med grå bakgrundsfärg och kryss i texten på knappen.
  * Kolla av validering och Lighthouse bifoga filerna.
-*/
-
-/* ATT GÖRA
  * Lägg till sparningar till LocalStorage för att spara de nya Todon.
  * Se över TS och lägg till kodkommnetarer.
- */
+*/
 
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
 
 let todoArticles = [ // arrayn med färdigskrivna Todo-objekt
-  {
+  /* {
+    todaysDate: '',
+    deadlineDate: '',
+    category: '',
+    toDoName: '',
+    description: '',
+    isCompleted: false,
+  }, */{
     todaysDate: '2022-12-12',
     deadlineDate: '2023-03-06, 05:30',
     category: 'Trädgård',
@@ -87,18 +91,19 @@ function addColorToCategorys() {
   const categoryDivAddIcon : NodeListOf<HTMLElement> = document.querySelectorAll('#iconImg');
   // hämtar img där ikonen ska in
 
-  const pickUpIsCompliteButton = document.querySelectorAll('#doneButton');
+  const pickUpIsCompliteButton = document.querySelectorAll('#doneButton'); // hämta lägg till todoknapp
   const ComplietedButtonDeliteRedText = document.querySelectorAll('#fiveDaysToDeadline');
+  // hämta textfältet med den rödstylade texten.
 
   for (let i = 0; i < categoryParts.length; i++) { // loop som kör igenom alla kategorier
     const index = pickUpIsCompliteButton[i].getAttribute('todoIndex');
-    if (todoArticles[index].isCompleted) { // Den ska läggas längst ner i listan
-      pickUpIsCompliteButton[i].innerHTML = 'Klar!'; // pickUpIsCompliteButton[i].classList.add('IsComplietedButton')
-      articleTodo[i].classList.add('IsComplietedBorder');
-      ComplietedButtonDeliteRedText[i].innerHTML = '';
+    if (todoArticles[index].isCompleted) { // om klarmarkerad så läggs todon längst ner i listan
+      pickUpIsCompliteButton[i].innerHTML = 'Klar!'; // klarknappens text ändras
+      articleTodo[i].classList.add('IsComplietedBorder'); // lägger till grå ram
+      ComplietedButtonDeliteRedText[i].innerHTML = ''; // den röda texten töms
     }
     if ((new Date() >= new Date(deadlinesDateDiv[i].innerHTML))) {
-      articleTodo[i].classList.add('deadlineCSS');
+      articleTodo[i].classList.add('deadlineCSS'); // lägger till röd ram
     }
     if (categoryParts[i].innerHTML === 'Trädgård') { // om kategorin är trädgård
       categoryParts[i].classList.add('green'); // ändras färgen till grön
@@ -116,25 +121,6 @@ function addColorToCategorys() {
       categoryDivAddIcon[i].setAttribute('src', '/handyman.jpg'); // ikon med verktyg läggs in i img
       categoryDivAddIcon[i].setAttribute('alt', 'homeIcon'); // alttext läggs till
     }
-  }
-}
-
-/**
- * Funktion som tar bort todos
- */
-function removeTodo(e) {
-  const index = e.target.getAttribute('todoIndex'); // Väljer ut atributet todoIndex
-  if (index > -1) { // Om index finns
-    todoArticles.splice(index, 1); // så ska det aktuella indexet tas bort, endast ett index
-    updateTodoList(); // Uppdaterar nya listan
-  }
-}
-
-function moveMarckedTodoLastPlace(e) {
-  const index = e.target.getAttribute('todoIndex');
-  if (index > -1) {
-    todoArticles[index].isCompleted = true;
-    updateTodoList();
   }
 }
 
@@ -218,19 +204,20 @@ function sortandfilterlist() {
       if (!a.isCompleted && b.isCompleted) {
         return -1;
       }
+      return 0;
     });
   }
   /**
    * Filter av todos
    * */
   if (filtreGarden.checked) {
-    const gardenTodos = todoArticlesCopy.filter(todoArticlesCopy => todoArticlesCopy.category === 'Trädgård');
+    const gardenTodos = todoArticlesCopy.filter((todoGarden) => todoGarden.category === 'Trädgård');
     todoArticlesCopy = gardenTodos;
   } if (filtreHandyman.checked) {
-    const handymanTodos = todoArticlesCopy.filter(todoArticlesCopy => todoArticlesCopy.category === 'Hantverkare');
+    const handymanTodos = todoArticlesCopy.filter((todoHandyman) => todoHandyman.category === 'Hantverkare');
     todoArticlesCopy = handymanTodos;
   } if (filtreHome.checked) {
-    const homeTodos = todoArticlesCopy.filter(todoArticlesCopy => todoArticlesCopy.category === 'Hus och hem');
+    const homeTodos = todoArticlesCopy.filter((todosHome) => todosHome.category === 'Hus och hem');
     todoArticlesCopy = homeTodos;
   } if (filtreAll.checked) {
     const allTodos = todoArticlesCopy;
@@ -238,14 +225,6 @@ function sortandfilterlist() {
   }
   return todoArticlesCopy;
 }
-sortByCategory?.addEventListener('click', updateTodoList);
-sortByCreatedate?.addEventListener('click', updateTodoList);
-sortByDeadlinedate?.addEventListener('click', updateTodoList);
-sortByNameOfTodo?.addEventListener('click', updateTodoList);
-filtreGarden?.addEventListener('click', updateTodoList);
-filtreHandyman?.addEventListener('click', updateTodoList);
-filtreHome?.addEventListener('click', updateTodoList);
-filtreAll?.addEventListener('click', updateTodoList);
 
 function dueText(todoArticle) {
   if (new Date() >= new Date(todoArticle.deadlineDate)) {
@@ -255,6 +234,7 @@ function dueText(todoArticle) {
     return 'Nu är det inom fem dagar till deadline!';
   }
   return '';
+  // Text som uppmärksammar deadlinespannet inom fem dagar och deadlinens utgång.
 }
 
 /**
@@ -264,11 +244,9 @@ function updateTodoList() {
   if (toDoItemSection != null) {
     toDoItemSection.innerHTML = ''; // innerHTML töms varje gång funktionen körs
     const saveInLocalStorage = JSON.stringify(todoArticles);
-    localStorage.setItem('Todos', saveInLocalStorage);
+    localStorage.setItem('Todos', saveInLocalStorage); // sparar todoarticles som stäng i localStroage
 
-
-
-    let todoArticlesSortFiltreList = sortandfilterlist();
+    const todoArticlesSortFiltreList = sortandfilterlist();
 
     for (let i = 0; i < todoArticlesSortFiltreList.length; i++) {
       // loop som kör alla artiklarna, en i taget tills de är slut
@@ -300,16 +278,47 @@ function updateTodoList() {
 
     for (let i = 0; i < deliteTodoButton.length; i++) {
       deliteTodoButton[i].addEventListener('click', removeTodo);
+      // när man trycker på delite, startas functionen removeTodo
     }
     for (let i = 0; i < markDoneTodo.length; i++) {
       markDoneTodo[i].addEventListener('click', moveMarckedTodoLastPlace);
+      // när man markerar tododn som klar startar funktionen som lägger den sist i flödet
     }
   }
 }
 
+/**
+ * Funktion som tar bort todos
+ */
+function removeTodo(e) {
+  const index = e.target.getAttribute('todoIndex'); // Väljer ut atributet todoIndex
+  if (index > -1) { // Om index finns
+    todoArticles.splice(index, 1); // så ska det aktuella indexet tas bort, endast ett index
+    updateTodoList(); // Uppdaterar nya listan
+  }
+}
+
+// Flyttar den märkta todon längst ner i flödet.
+function moveMarckedTodoLastPlace(e) {
+  const index = e.target.getAttribute('todoIndex');
+  if (index > -1) {
+    todoArticles[index].isCompleted = true;
+    updateTodoList();
+  }
+}
+
+sortByCategory?.addEventListener('click', updateTodoList);
+sortByCreatedate?.addEventListener('click', updateTodoList);
+sortByDeadlinedate?.addEventListener('click', updateTodoList);
+sortByNameOfTodo?.addEventListener('click', updateTodoList);
+filtreGarden?.addEventListener('click', updateTodoList);
+filtreHandyman?.addEventListener('click', updateTodoList);
+filtreHome?.addEventListener('click', updateTodoList);
+filtreAll?.addEventListener('click', updateTodoList);
+
 const dataInLocalstorage = localStorage.getItem('Todos');
-if (dataInLocalstorage != null) {
-  todoArticles = JSON.parse(localStorage.getItem('Todos'));
+if (dataInLocalstorage != null) { // om localstorage har ett värde som inte är noll
+  todoArticles = JSON.parse(localStorage.getItem('Todos')); // laddas datan in från localstorage till todoArticles
 }
 
 updateTodoList();
@@ -329,9 +338,9 @@ const radioButtonHandyman : HTMLFormElement | null = document.querySelector('#ca
 function addNewTodoItem(e:MouseEvent) {
   const today = new Date(); // Hämtar upp dagens datum
   const year = today.getFullYear(); // Hämtar endast året
-  const month = (String(today.getMonth() + 1).padStart(2, '0'));
+  const month = String(today.getMonth() + 1).padStart(2, '0');
   // Hämtar endast måndaden, om månaden är ensiffrigt läggs det på en nolla före.
-  const day = (String(today.getDate()).padStart(2, '0'));
+  const day = String(today.getDate()).padStart(2, '0');
   // Hämtar endast dagen, om det är under tio läggs det på en nolla före.
   const todayYearMonthDay = year + '-' + month + '-' + day;
   // Dagens datum sätts ihop.
@@ -346,7 +355,7 @@ function addNewTodoItem(e:MouseEvent) {
     categoryValue = 'Hus och hem';
   } else if (radioButtonHandyman.checked) {
     categoryValue = 'Hantverkare';
-  };
+  }
 
   e.preventDefault(); // Nollar knappens egenskaper som laddar om sidan vid tryck
   /**
@@ -368,13 +377,6 @@ function addNewTodoItem(e:MouseEvent) {
 }
 
 addNewTodoButton.addEventListener('click', addNewTodoItem); // När Lägg till todoknapp klickas startar funktionen
-deadlineDate.addEventListener('input', activateAddButton);
-deadLineTime.addEventListener('input', activateAddButton);
-categoryGarden.addEventListener('click', activateAddButton);
-categoryHouse.addEventListener('click', activateAddButton);
-categoryHandyMan.addEventListener('click', activateAddButton);
-nameOfToDo.addEventListener('input', activateAddButton);
-descriptionOfTodoArea.addEventListener('input', activateAddButton);
 
 const addButton: HTMLFormElement | null = document.querySelector('#addNewTodoButtonID');
 const deadlineDateCheck : HTMLFormElement | null = document.querySelector('#deadlineDate');
@@ -384,6 +386,10 @@ const gardenTodoscheck : HTMLFormElement | null = document.querySelector('#categ
 const homeTodosCheck : HTMLFormElement | null = document.querySelector('#categoryHouse');
 const handymanTodosCheck : HTMLFormElement | null = document.querySelector('#categoryHandyMan');
 
+/**
+ * Funktion som aktiverar lägg till todo om kraven uppfylls.
+ * Kräver att fälten inte är tomma för att kunna lägga till en todo.
+ */
 function activateAddButton() {
   if (deadlineDateCheck.value !== '' && todoNameCheck.value !== '' && descriptionTodoCheck.value !== ''
     && (gardenTodoscheck.checked || homeTodosCheck.checked || handymanTodosCheck.checked)) {
@@ -392,3 +398,10 @@ function activateAddButton() {
     addButton.setAttribute('disabled', '');
   }
 }
+
+deadlineDateCheck.addEventListener('input', activateAddButton);
+gardenTodoscheck.addEventListener('click', activateAddButton);
+homeTodosCheck.addEventListener('click', activateAddButton);
+handymanTodosCheck.addEventListener('click', activateAddButton);
+todoNameCheck.addEventListener('input', activateAddButton);
+descriptionTodoCheck.addEventListener('input', activateAddButton);
