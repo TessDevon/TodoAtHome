@@ -25,7 +25,7 @@ import './style/style.scss';
 const toDoItemSection = document.querySelector('#toDoItemSection');
 // hämtar upp sectionen där Todo-artiklarna ska skrivas in
 
-const todoArticles = [ // arrayn med färdigskrivna Todo-objekt
+let todoArticles = [ // arrayn med färdigskrivna Todo-objekt
   {
     todaysDate: '2022-12-12',
     deadlineDate: '2023-03-06, 05:30',
@@ -195,7 +195,6 @@ function sortandfilterlist() {
       }
       return 0; // Om den är oräfrndrad utgångsvärdet
     });
-    console.table(todoArticlesCopy);
   } else if (sortByNameOfTodo.checked) {
     todoArticlesCopy.sort((a, b) => {
       if (a.isCompleted && !b.isCompleted) {
@@ -264,6 +263,10 @@ function dueText(todoArticle) {
 function updateTodoList() {
   if (toDoItemSection != null) {
     toDoItemSection.innerHTML = ''; // innerHTML töms varje gång funktionen körs
+    const saveInLocalStorage = JSON.stringify(todoArticles);
+    localStorage.setItem('Todos', saveInLocalStorage);
+
+
 
     let todoArticlesSortFiltreList = sortandfilterlist();
 
@@ -294,7 +297,6 @@ function updateTodoList() {
     addColorToCategorys(); // kör funktionen för categorierna efter att listan uppdaterats
     const deliteTodoButton : NodeListOf<Element> | null = document.querySelectorAll('#deliteButton');
     const markDoneTodo : NodeListOf<Element> | null = document.querySelectorAll('#doneButton');
-    console.log(markDoneTodo);
 
     for (let i = 0; i < deliteTodoButton.length; i++) {
       deliteTodoButton[i].addEventListener('click', removeTodo);
@@ -303,6 +305,11 @@ function updateTodoList() {
       markDoneTodo[i].addEventListener('click', moveMarckedTodoLastPlace);
     }
   }
+}
+
+const dataInLocalstorage = localStorage.getItem('Todos');
+if (dataInLocalstorage != null) {
+  todoArticles = JSON.parse(localStorage.getItem('Todos'));
 }
 
 updateTodoList();
