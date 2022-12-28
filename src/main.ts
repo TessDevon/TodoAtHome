@@ -3,7 +3,6 @@ import garden from './garden.jpg';
 import housesAndHomes from './housesAndHomes.jpg';
 import handyman from './handyman.jpg';
 
-
 /* KLARA TODO
  * Loop där objkekten körs i en array
  * Lägga in HTML strukturen
