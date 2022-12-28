@@ -125,19 +125,19 @@ function addColorToCategorys() {
       // om kategorin är trädgård
       categoryParts[i].classList.add('green'); // ändras färgen till grön
       articleTodo[i].classList.add('greenbordered'); // Todon får en grön ram
-      categoryDivAddIcon[i].setAttribute('src', './public/garden.jpg'); // Ikonen med blomma läggs till i img
+      categoryDivAddIcon[i].setAttribute('src', '/garden.jpg'); // Ikonen med blomma läggs till i img
       categoryDivAddIcon[i].setAttribute('alt', 'gardenIcon'); // med altvärde
     } else if (categoryParts[i].innerHTML === 'Hus och hem') {
       // om kategorin är hus och hem
       categoryParts[i].classList.add('blue'); // så är textfärgen blå
       articleTodo[i].classList.add('bluebordered'); // ramen runt blå
-      categoryDivAddIcon[i].setAttribute('src', './public/housesAndHomes.jpg'); // ikonen med huset läggs in i img
+      categoryDivAddIcon[i].setAttribute('src', '/housesAndHomes.jpg'); // ikonen med huset läggs in i img
       categoryDivAddIcon[i].setAttribute('alt', 'homeIcon'); // alttext förs in
     } else if (categoryParts[i].innerHTML === 'Hantverkare') {
       // och om kategorin är hantverkare
       categoryParts[i].classList.add('purple'); // blir textfärgen lila
       articleTodo[i].classList.add('purplebordered'); // ram med lila färg runt
-      categoryDivAddIcon[i].setAttribute('src', './public/handyman.jpg'); // ikon med verktyg läggs in i img
+      categoryDivAddIcon[i].setAttribute('src', '/handyman.jpg'); // ikon med verktyg läggs in i img
       categoryDivAddIcon[i].setAttribute('alt', 'homeIcon'); // alttext läggs till
     }
   }
