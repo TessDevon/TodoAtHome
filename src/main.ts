@@ -1,8 +1,7 @@
 import './style/style.scss';
-import './style/style.scss';
 import garden from './garden.jpg';
 import housesAndHomes from '/housesAndHomes.jpg';
-import handyman from '/handyman.jpg';
+import handyman from '/handyman.jpg'
 
 
 /* KLARA TODO
